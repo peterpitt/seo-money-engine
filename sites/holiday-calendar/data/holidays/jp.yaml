@@ -1,0 +1,93 @@
+# 日本國民の祝日。依內閣府公布（2027 春分・秋分已於 2026 年 2 月官報公告）。
+# 2028、2029 的春分・秋分（及其補假）分別在前一年 2 月官報公告前標為 estimated；其他祝日依《祝日法》固定。
+# 查核：內閣府「国民の祝日について」、python-holidays 0.107 交叉比對（2026-10-23）
+country: Japan
+country_zh: 日本
+code: jp
+language: ja
+timezone: Asia/Tokyo        # 行事曆頁面顯示當地時間用
+city: Tokyo
+city_zh: 東京
+short: Japan
+pages:
+  en: /japan-public-holidays/
+  zh-TW: /japan-holidays-zh/
+weekend: [sat, sun]
+sources:
+  - name: Cabinet Office of Japan — 国民の祝日について
+    url: https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html
+holidays:
+  # ---------- 2026 ----------
+  - {date: 2026-01-01, name: "New Year's Day", name_zh: 元旦, local: 元日}
+  - {date: 2026-01-12, name: Coming of Age Day, name_zh: 成人之日, local: 成人の日}
+  - {date: 2026-02-11, name: National Foundation Day, name_zh: 建國紀念日, local: 建国記念の日}
+  - {date: 2026-02-23, name: "Emperor's Birthday", name_zh: 天皇誕辰, local: 天皇誕生日}
+  - {date: 2026-03-20, name: Vernal Equinox Day, name_zh: 春分之日, local: 春分の日}
+  - {date: 2026-04-29, name: Showa Day, name_zh: 昭和之日, local: 昭和の日}
+  - {date: 2026-05-03, name: Constitution Memorial Day, name_zh: 憲法紀念日, local: 憲法記念日}
+  - {date: 2026-05-04, name: Greenery Day, name_zh: 綠之日, local: みどりの日}
+  - {date: 2026-05-05, name: "Children's Day", name_zh: 兒童節, local: こどもの日}
+  - {date: 2026-05-06, name: Substitute Holiday, name_zh: 補假, local: 振替休日, note: Constitution Memorial Day fell on a Sunday, note_zh: 憲法紀念日逢週日補假}
+  - {date: 2026-07-20, name: Marine Day, name_zh: 海之日, local: 海の日}
+  - {date: 2026-08-11, name: Mountain Day, name_zh: 山之日, local: 山の日}
+  - {date: 2026-09-21, name: Respect for the Aged Day, name_zh: 敬老之日, local: 敬老の日}
+  - {date: 2026-09-22, name: "Citizens' Holiday", name_zh: 國民休日, local: 国民の休日, note: A weekday sandwiched between two holidays becomes a holiday, note_zh: 夾在兩個國定假日之間的平日自動放假}
+  - {date: 2026-09-23, name: Autumnal Equinox Day, name_zh: 秋分之日, local: 秋分の日}
+  - {date: 2026-10-12, name: Sports Day, name_zh: 體育之日, local: スポーツの日}
+  - {date: 2026-11-03, name: Culture Day, name_zh: 文化之日, local: 文化の日}
+  - {date: 2026-11-23, name: Labor Thanksgiving Day, name_zh: 勤勞感謝之日, local: 勤労感謝の日}
+  # ---------- 2027 ----------
+  - {date: 2027-01-01, name: "New Year's Day", name_zh: 元旦, local: 元日}
+  - {date: 2027-01-11, name: Coming of Age Day, name_zh: 成人之日, local: 成人の日}
+  - {date: 2027-02-11, name: National Foundation Day, name_zh: 建國紀念日, local: 建国記念の日}
+  - {date: 2027-02-23, name: "Emperor's Birthday", name_zh: 天皇誕辰, local: 天皇誕生日}
+  - {date: 2027-03-21, name: Vernal Equinox Day, name_zh: 春分之日, local: 春分の日}
+  - {date: 2027-03-22, name: Substitute Holiday, name_zh: 補假, local: 振替休日, note: Vernal Equinox Day falls on a Sunday, note_zh: 春分之日逢週日補假}
+  - {date: 2027-04-29, name: Showa Day, name_zh: 昭和之日, local: 昭和の日}
+  - {date: 2027-05-03, name: Constitution Memorial Day, name_zh: 憲法紀念日, local: 憲法記念日}
+  - {date: 2027-05-04, name: Greenery Day, name_zh: 綠之日, local: みどりの日}
+  - {date: 2027-05-05, name: "Children's Day", name_zh: 兒童節, local: こどもの日}
+  - {date: 2027-07-19, name: Marine Day, name_zh: 海之日, local: 海の日}
+  - {date: 2027-08-11, name: Mountain Day, name_zh: 山之日, local: 山の日}
+  - {date: 2027-09-20, name: Respect for the Aged Day, name_zh: 敬老之日, local: 敬老の日}
+  - {date: 2027-09-23, name: Autumnal Equinox Day, name_zh: 秋分之日, local: 秋分の日}
+  - {date: 2027-10-11, name: Sports Day, name_zh: 體育之日, local: スポーツの日}
+  - {date: 2027-11-03, name: Culture Day, name_zh: 文化之日, local: 文化の日}
+  - {date: 2027-11-23, name: Labor Thanksgiving Day, name_zh: 勤勞感謝之日, local: 勤労感謝の日}
+  # ---------- 2028（春分・秋分於 2027 年 2 月官報公告前為預估）----------
+  - {date: 2028-01-01, name: "New Year's Day", name_zh: 元旦, local: 元日}
+  - {date: 2028-01-10, name: Coming of Age Day, name_zh: 成人之日, local: 成人の日}
+  - {date: 2028-02-11, name: National Foundation Day, name_zh: 建國紀念日, local: 建国記念の日}
+  - {date: 2028-02-23, name: "Emperor's Birthday", name_zh: 天皇誕辰, local: 天皇誕生日}
+  - {date: 2028-03-20, status: estimated, name: Vernal Equinox Day, name_zh: 春分之日, local: 春分の日}
+  - {date: 2028-04-29, name: Showa Day, name_zh: 昭和之日, local: 昭和の日}
+  - {date: 2028-05-03, name: Constitution Memorial Day, name_zh: 憲法紀念日, local: 憲法記念日}
+  - {date: 2028-05-04, name: Greenery Day, name_zh: 綠之日, local: みどりの日}
+  - {date: 2028-05-05, name: "Children's Day", name_zh: 兒童節, local: こどもの日}
+  - {date: 2028-07-17, name: Marine Day, name_zh: 海之日, local: 海の日}
+  - {date: 2028-08-11, name: Mountain Day, name_zh: 山之日, local: 山の日}
+  - {date: 2028-09-18, name: Respect for the Aged Day, name_zh: 敬老之日, local: 敬老の日}
+  - {date: 2028-09-22, status: estimated, name: Autumnal Equinox Day, name_zh: 秋分之日, local: 秋分の日}
+  - {date: 2028-10-09, name: Sports Day, name_zh: 體育之日, local: スポーツの日}
+  - {date: 2028-11-03, name: Culture Day, name_zh: 文化之日, local: 文化の日}
+  - {date: 2028-11-23, name: Labor Thanksgiving Day, name_zh: 勤勞感謝之日, local: 勤労感謝の日}
+  # ---------- 2029（春分・秋分於 2028 年 2 月官報公告前為預估）----------
+  - {date: 2029-01-01, name: "New Year's Day", name_zh: 元旦, local: 元日}
+  - {date: 2029-01-08, name: Coming of Age Day, name_zh: 成人之日, local: 成人の日}
+  - {date: 2029-02-11, name: National Foundation Day, name_zh: 建國紀念日, local: 建国記念の日}
+  - {date: 2029-02-12, name: Substitute Holiday, name_zh: 補假, local: 振替休日, note: National Foundation Day falls on a Sunday, note_zh: 建國紀念日逢週日補假}
+  - {date: 2029-02-23, name: "Emperor's Birthday", name_zh: 天皇誕辰, local: 天皇誕生日}
+  - {date: 2029-03-20, status: estimated, name: Vernal Equinox Day, name_zh: 春分之日, local: 春分の日}
+  - {date: 2029-04-29, name: Showa Day, name_zh: 昭和之日, local: 昭和の日}
+  - {date: 2029-04-30, name: Substitute Holiday, name_zh: 補假, local: 振替休日, note: Showa Day falls on a Sunday, note_zh: 昭和之日逢週日補假}
+  - {date: 2029-05-03, name: Constitution Memorial Day, name_zh: 憲法紀念日, local: 憲法記念日}
+  - {date: 2029-05-04, name: Greenery Day, name_zh: 綠之日, local: みどりの日}
+  - {date: 2029-05-05, name: "Children's Day", name_zh: 兒童節, local: こどもの日}
+  - {date: 2029-07-16, name: Marine Day, name_zh: 海之日, local: 海の日}
+  - {date: 2029-08-11, name: Mountain Day, name_zh: 山之日, local: 山の日}
+  - {date: 2029-09-17, name: Respect for the Aged Day, name_zh: 敬老之日, local: 敬老の日}
+  - {date: 2029-09-23, status: estimated, name: Autumnal Equinox Day, name_zh: 秋分之日, local: 秋分の日}
+  - {date: 2029-09-24, status: estimated, name: Substitute Holiday, name_zh: 補假, local: 振替休日, note: Autumnal Equinox Day falls on a Sunday, note_zh: 秋分之日逢週日補假}
+  - {date: 2029-10-08, name: Sports Day, name_zh: 體育之日, local: スポーツの日}
+  - {date: 2029-11-03, name: Culture Day, name_zh: 文化之日, local: 文化の日}
+  - {date: 2029-11-23, name: Labor Thanksgiving Day, name_zh: 勤勞感謝之日, local: 勤労感謝の日}

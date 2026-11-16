@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% set zh = page_lang.lower().startswith("zh") %}
+{% block title %}{{ "使用條款" if zh else "Terms of Use" }} · {{ site.name }}{% endblock %}
+{% block description %}{{ (site.name ~ " 的使用條款與資訊免責聲明。") if zh else ("Terms of use and information disclaimer for " ~ site.name ~ ".") }}{% endblock %}
+{% block head_extra %}
+<link rel="alternate" hreflang="en" href="{{ site.base_url }}/terms/">
+<link rel="alternate" hreflang="zh-TW" href="{{ site.base_url }}/terms/zh-tw/">
+<link rel="alternate" hreflang="x-default" href="{{ site.base_url }}/terms/">
+{% endblock %}
+{% block content %}
+<article class="post legal">
+{% if zh %}
+  <h1>使用條款</h1>
+  <p>使用 {{ site.name }} 即表示你同意將本站內容作為一般資訊參考。資料雖會盡力維持正確，但假日公告、營業安排、交通、價格和個別機構規則可能隨時變動。</p>
+  <h2>自行確認重要事項</h2>
+  <p>請在請假、訂房、購票、安排付款或進行交易前，向雇主、政府、銀行、交易所、航空公司或其他相關機構確認。本網站不提供法律、金融、稅務、雇傭或專業旅遊建議。</p>
+  <h2>外部網站與聯盟連結</h2>
+  <p>外部連結與聯盟連結由其各自的服務提供者負責。若你透過聯盟連結購買，我們可能取得佣金，但你的價格不會因此增加。</p>
+  <h2>條款更新</h2>
+  <p>我們可隨時更新本條款；更新後會發布在此頁。最後更新：{{ updated }}。</p>
+{% else %}
+  <h1>Terms of Use</h1>
+  <p>By using {{ site.name }}, you agree to use its content as general information. We work to keep it accurate, but holiday announcements, opening arrangements, transport, prices and individual institutional rules can change at any time.</p>
+  <h2>Confirm important decisions</h2>
+  <p>Before requesting leave, booking travel, arranging a payment or making a trade, confirm the relevant details with your employer, government, bank, exchange, carrier or other responsible institution. This site does not provide legal, financial, tax, employment or professional travel advice.</p>
+  <h2>External and affiliate links</h2>
+  <p>External and affiliate links are operated by their respective providers. We may earn a commission if you buy through an affiliate link, at no additional cost to you.</p>
+  <h2>Updates</h2>
+  <p>We may update these terms from time to time. The current version is published on this page. Last updated: {{ updated }}.</p>
+{% endif %}
+</article>
+{% endblock %}

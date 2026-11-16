@@ -1,0 +1,63 @@
+# 國定假日行事曆站（主網域 asusucloud.com）。換網域時只要改 base_url 這一行。
+site:
+  name: Holiday Planner
+  base_url: https://asusucloud.com          # 主網域；子網域網站放在 sites/music（music.asusucloud.com）、sites/app（app.asusucloud.com）
+  default_lang: en
+  author: Holiday Planner Editorial
+  author_type: organization          # 署名是編輯團隊不是個人；換成真實姓名／筆名時改成 person
+  contact_email: hello@asusucloud.com
+  description: Verified public holiday calendars, long weekends and leave hacks for 9 countries, with live local times.
+  out_dir: public
+  max_internal_links: 3
+  # 同品牌的姊妹站：子網域網站建好後取消註解，每個網站的頁尾會互相連結（自己那一項不會顯示）
+  # network:
+  #   - {name: Holiday Planner, url: https://asusucloud.com}
+  #   - {name: Music, url: https://music.asusucloud.com}
+  #   - {name: 公益小幫手, url: https://app.asusucloud.com}
+
+adsense:
+  client: "ca-pub-1750683429493262"
+  slot: ""
+  max_ads: 3
+  min_words_between: 220
+
+analytics:
+  ga4: "G-1NEC20CKWF"
+
+quality:
+  min_words: 800
+  title_width: [20, 60]
+  description_width: [70, 160]
+  min_h2: 2
+  max_paragraph_words: 80
+
+# 給訪客的多語言假日行事曆：/calendar/（第一個語言）＋ /calendar/<語言>/
+calendar_page:
+  countries: [us, ae, it, jp, de, fr, gb, au, tw]
+  sort: utc                      # 卡片依標準時區由西到東排列（新增國家會自動排好）
+  languages: [en, zh-TW, ja, it, ar]
+  year: auto                     # 自動：10 月起預設顯示明年，過去的年份不顯示
+
+# Google 資料來源
+google:
+  ads_config: secrets/google-ads.yaml        # 用 seoengine ads auth 產生（不會進版本控制）
+  # Google Ads 帳戶不是美元時，填該幣別對美元的匯率（CPC 會換算成美元再算錢景分數）
+  fx_to_usd: {TWD: 0.0307}                    # 2026-10-23 匯率 1 USD = 32.59 TWD；匯率大幅變動時再更新
+  # seoengine ads ideas 不加參數時，依序跑這些種子（多個種子用 | 分隔）
+  seeds:
+    - {seed: "public holidays 2027|federal holidays 2027|long weekends 2027", geo: US, lang: en}
+    - {seed: "uae public holidays 2027|eid al fitr 2027 holiday", geo: AE, lang: en}
+    - {seed: "festività 2027|ponti 2027", geo: IT, lang: it}
+    - {seed: "祝日 2027|ゴールデンウィーク 2027", geo: JP, lang: ja}
+    - {seed: "日本連假 2027|日本 國定假日", geo: TW, lang: zh_TW}
+
+trends:
+  geos: [US, AE, IT, JP, TW]
+  # 熱搜標題包含以下任一字詞才保留（跟網站主題相關）
+  include: [holiday, long weekend, golden week, eid, ramadan, national day, thanksgiving, christmas,
+            festiv, ponte, ferie, ferragosto, 祝日, 連休, ゴールデンウィーク, 連假, 假期, 放假, عطلة, إجازة]
+  exclude: [stock, scores]
+
+# 部署：seoengine deploy sites/holiday-calendar（只上傳 public/，儀表板與金鑰留在本機）
+deploy:
+  cloudflare_project: asusu-calendar        # Pages 專案名稱（跟網域無關）；子網域網站各自用 asusu-music、asusu-app

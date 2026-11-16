@@ -1,0 +1,68 @@
+# 美國聯邦假日（5 U.S.C. 6103）。週六的假日提前到週五放、週日的假日延到週一放。
+# 2028–2029 依 5 U.S.C. 6103 的規則推算（日期固定或「第幾個星期一」），不需要每年公告。
+# 查核：OPM 規則、Federal Reserve 假日表、python-holidays 0.107 交叉比對（2026-10-23）
+country: United States
+country_zh: 美國
+code: us
+language: en
+timezone: America/New_York        # 行事曆頁面顯示當地時間用
+city: New York
+city_zh: 紐約
+short: US
+pages:
+  en: /us-federal-holidays/
+weekend: [sat, sun]
+sources:
+  - name: OPM — Federal Holidays
+    url: https://www.opm.gov/Operating_Status_Schedules/fedhol
+  - name: Federal Reserve — Holiday Schedules
+    url: https://www.federalreserve.gov/aboutthefed/k8.htm
+holidays:
+  # ---------- 2026 ----------
+  - {date: 2026-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2026-01-19, name: "Martin Luther King Jr. Day", name_zh: 馬丁路德金恩紀念日}
+  - {date: 2026-02-16, name: "Washington's Birthday (Presidents' Day)", name_zh: 總統日}
+  - {date: 2026-05-25, name: Memorial Day, name_zh: 陣亡將士紀念日}
+  - {date: 2026-06-19, name: Juneteenth, name_zh: 六月節（奴隸解放日）}
+  - {date: 2026-07-03, actual: 2026-07-04, name: Independence Day, name_zh: 獨立紀念日}
+  - {date: 2026-09-07, name: Labor Day, name_zh: 勞動節}
+  - {date: 2026-10-12, name: "Columbus Day", name_zh: 哥倫布日, note: "Many states and cities observe Indigenous Peoples' Day instead", note_zh: 許多州改稱原住民日}
+  - {date: 2026-11-11, name: Veterans Day, name_zh: 退伍軍人節}
+  - {date: 2026-11-26, name: Thanksgiving Day, name_zh: 感恩節}
+  - {date: 2026-12-25, name: Christmas Day, name_zh: 聖誕節}
+  # ---------- 2027 ----------
+  - {date: 2027-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2027-01-18, name: "Martin Luther King Jr. Day", name_zh: 馬丁路德金恩紀念日}
+  - {date: 2027-02-15, name: "Washington's Birthday (Presidents' Day)", name_zh: 總統日}
+  - {date: 2027-05-31, name: Memorial Day, name_zh: 陣亡將士紀念日}
+  - {date: 2027-06-18, actual: 2027-06-19, name: Juneteenth, name_zh: 六月節（奴隸解放日）}
+  - {date: 2027-07-05, actual: 2027-07-04, name: Independence Day, name_zh: 獨立紀念日}
+  - {date: 2027-09-06, name: Labor Day, name_zh: 勞動節}
+  - {date: 2027-10-11, name: "Columbus Day", name_zh: 哥倫布日, note: "Many states and cities observe Indigenous Peoples' Day instead", note_zh: 許多州改稱原住民日}
+  - {date: 2027-11-11, name: Veterans Day, name_zh: 退伍軍人節}
+  - {date: 2027-11-25, name: Thanksgiving Day, name_zh: 感恩節}
+  - {date: 2027-12-24, actual: 2027-12-25, name: Christmas Day, name_zh: 聖誕節}
+  - {date: 2027-12-31, actual: 2028-01-01, name: "New Year's Day 2028", name_zh: 2028 元旦, note: "Observed in 2027 because Jan 1, 2028 is a Saturday", note_zh: 2028/1/1 是週六，提前於 2027 年底放假}
+  # ---------- 2028（聯邦法定規則；2028/1/1 週六已於 2027/12/31 放假）----------
+  - {date: 2028-01-17, name: "Martin Luther King Jr. Day", name_zh: 馬丁路德金恩紀念日}
+  - {date: 2028-02-21, name: "Washington's Birthday (Presidents' Day)", name_zh: 總統日}
+  - {date: 2028-05-29, name: Memorial Day, name_zh: 陣亡將士紀念日}
+  - {date: 2028-06-19, name: Juneteenth, name_zh: 六月節（奴隸解放日）}
+  - {date: 2028-07-04, name: Independence Day, name_zh: 獨立紀念日}
+  - {date: 2028-09-04, name: Labor Day, name_zh: 勞動節}
+  - {date: 2028-10-09, name: "Columbus Day", name_zh: 哥倫布日, note: "Many states and cities observe Indigenous Peoples' Day instead", note_zh: 許多州改稱原住民日}
+  - {date: 2028-11-10, actual: 2028-11-11, name: Veterans Day, name_zh: 退伍軍人節}
+  - {date: 2028-11-23, name: Thanksgiving Day, name_zh: 感恩節}
+  - {date: 2028-12-25, name: Christmas Day, name_zh: 聖誕節}
+  # ---------- 2029 ----------
+  - {date: 2029-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2029-01-15, name: "Martin Luther King Jr. Day", name_zh: 馬丁路德金恩紀念日}
+  - {date: 2029-02-19, name: "Washington's Birthday (Presidents' Day)", name_zh: 總統日}
+  - {date: 2029-05-28, name: Memorial Day, name_zh: 陣亡將士紀念日}
+  - {date: 2029-06-19, name: Juneteenth, name_zh: 六月節（奴隸解放日）}
+  - {date: 2029-07-04, name: Independence Day, name_zh: 獨立紀念日}
+  - {date: 2029-09-03, name: Labor Day, name_zh: 勞動節}
+  - {date: 2029-10-08, name: "Columbus Day", name_zh: 哥倫布日, note: "Many states and cities observe Indigenous Peoples' Day instead", note_zh: 許多州改稱原住民日}
+  - {date: 2029-11-12, actual: 2029-11-11, name: Veterans Day, name_zh: 退伍軍人節}
+  - {date: 2029-11-22, name: Thanksgiving Day, name_zh: 感恩節}
+  - {date: 2029-12-25, name: Christmas Day, name_zh: 聖誕節}

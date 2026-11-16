@@ -1,0 +1,67 @@
+# 法國本土國定假日（jours fériés，11 天）。阿爾薩斯－摩澤爾另有耶穌受難日與 12/26 兩天，這裡不列。
+# 2028–2029 依法定規則推算（復活節相關假日依曆法計算），不需要每年公告。
+# 法國不補假：落在週末就不另放。聖靈降臨節星期一常被企業訂為「團結日」照常上班。
+# 查核：WEKA、calendriergratuit.fr 2027 jours fériés、python-holidays 0.107 交叉比對（2026-10-26）
+country: France
+country_zh: 法國
+code: fr
+language: fr
+timezone: Europe/Paris        # 行事曆頁面顯示當地時間用
+city: Paris
+city_zh: 巴黎
+short: France
+weekend: [sat, sun]
+sources:
+  - name: WEKA — Jours fériés 2027
+    url: https://www.weka.fr/glossaire/terme/jours-feries-2027-dans-la-fonction-publique/
+  - name: Calendrier gratuit — Jours fériés 2027 en France
+    url: https://www.calendriergratuit.fr/jours-feries-2027.htm
+holidays:
+  # ---------- 2026 ----------
+  - {date: 2026-01-01, name: "New Year's Day", name_zh: 元旦, local: Jour de l'An}
+  - {date: 2026-04-06, name: Easter Monday, name_zh: 復活節星期一, local: Lundi de Pâques}
+  - {date: 2026-05-01, name: Labour Day, name_zh: 勞動節, local: Fête du Travail}
+  - {date: 2026-05-08, name: Victory in Europe Day, name_zh: 歐戰勝利紀念日, local: Victoire 1945}
+  - {date: 2026-05-14, name: Ascension Day, name_zh: 耶穌升天節, local: Ascension}
+  - {date: 2026-05-25, name: Whit Monday, name_zh: 聖靈降臨節星期一, local: Lundi de Pentecôte, note: "Often a working 'solidarity day'", note_zh: 不少公司訂為團結日照常上班}
+  - {date: 2026-07-14, name: Bastille Day, name_zh: 法國國慶日, local: Fête nationale}
+  - {date: 2026-08-15, name: Assumption Day, name_zh: 聖母升天節, local: Assomption}
+  - {date: 2026-11-01, name: "All Saints' Day", name_zh: 諸聖節, local: Toussaint}
+  - {date: 2026-11-11, name: Armistice Day, name_zh: 一戰停戰紀念日, local: Armistice 1918}
+  - {date: 2026-12-25, name: Christmas Day, name_zh: 聖誕節, local: Noël}
+  # ---------- 2027 ----------
+  - {date: 2027-01-01, name: "New Year's Day", name_zh: 元旦, local: Jour de l'An}
+  - {date: 2027-03-29, name: Easter Monday, name_zh: 復活節星期一, local: Lundi de Pâques}
+  - {date: 2027-05-01, name: Labour Day, name_zh: 勞動節, local: Fête du Travail}
+  - {date: 2027-05-06, name: Ascension Day, name_zh: 耶穌升天節, local: Ascension}
+  - {date: 2027-05-08, name: Victory in Europe Day, name_zh: 歐戰勝利紀念日, local: Victoire 1945}
+  - {date: 2027-05-17, name: Whit Monday, name_zh: 聖靈降臨節星期一, local: Lundi de Pentecôte, note: "Often a working 'solidarity day'", note_zh: 不少公司訂為團結日照常上班}
+  - {date: 2027-07-14, name: Bastille Day, name_zh: 法國國慶日, local: Fête nationale}
+  - {date: 2027-08-15, name: Assumption Day, name_zh: 聖母升天節, local: Assomption}
+  - {date: 2027-11-01, name: "All Saints' Day", name_zh: 諸聖節, local: Toussaint}
+  - {date: 2027-11-11, name: Armistice Day, name_zh: 一戰停戰紀念日, local: Armistice 1918}
+  - {date: 2027-12-25, name: Christmas Day, name_zh: 聖誕節, local: Noël}
+  # ---------- 2028 ----------
+  - {date: 2028-01-01, name: "New Year's Day", name_zh: 元旦, local: Jour de l'An}
+  - {date: 2028-04-17, name: Easter Monday, name_zh: 復活節星期一, local: Lundi de Pâques}
+  - {date: 2028-05-01, name: Labour Day, name_zh: 勞動節, local: Fête du Travail}
+  - {date: 2028-05-08, name: Victory in Europe Day, name_zh: 歐戰勝利紀念日, local: Victoire 1945}
+  - {date: 2028-05-25, name: Ascension Day, name_zh: 耶穌升天節, local: Ascension}
+  - {date: 2028-06-05, name: Whit Monday, name_zh: 聖靈降臨節星期一, local: Lundi de Pentecôte, note: "Often a working 'solidarity day'", note_zh: 不少公司訂為團結日照常上班}
+  - {date: 2028-07-14, name: Bastille Day, name_zh: 法國國慶日, local: Fête nationale}
+  - {date: 2028-08-15, name: Assumption Day, name_zh: 聖母升天節, local: Assomption}
+  - {date: 2028-11-01, name: "All Saints' Day", name_zh: 諸聖節, local: Toussaint}
+  - {date: 2028-11-11, name: Armistice Day, name_zh: 一戰停戰紀念日, local: Armistice 1918}
+  - {date: 2028-12-25, name: Christmas Day, name_zh: 聖誕節, local: Noël}
+  # ---------- 2029 ----------
+  - {date: 2029-01-01, name: "New Year's Day", name_zh: 元旦, local: Jour de l'An}
+  - {date: 2029-04-02, name: Easter Monday, name_zh: 復活節星期一, local: Lundi de Pâques}
+  - {date: 2029-05-01, name: Labour Day, name_zh: 勞動節, local: Fête du Travail}
+  - {date: 2029-05-08, name: Victory in Europe Day, name_zh: 歐戰勝利紀念日, local: Victoire 1945}
+  - {date: 2029-05-10, name: Ascension Day, name_zh: 耶穌升天節, local: Ascension}
+  - {date: 2029-05-21, name: Whit Monday, name_zh: 聖靈降臨節星期一, local: Lundi de Pentecôte, note: "Often a working 'solidarity day'", note_zh: 不少公司訂為團結日照常上班}
+  - {date: 2029-07-14, name: Bastille Day, name_zh: 法國國慶日, local: Fête nationale}
+  - {date: 2029-08-15, name: Assumption Day, name_zh: 聖母升天節, local: Assomption}
+  - {date: 2029-11-01, name: "All Saints' Day", name_zh: 諸聖節, local: Toussaint}
+  - {date: 2029-11-11, name: Armistice Day, name_zh: 一戰停戰紀念日, local: Armistice 1918}
+  - {date: 2029-12-25, name: Christmas Day, name_zh: 聖誕節, local: Noël}

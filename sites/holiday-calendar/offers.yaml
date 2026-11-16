@@ -1,0 +1,51 @@
+# 旅遊類聯盟商品 —— 全部為「示範資料」，網址為 example.com。
+# 上線前請換成你在聯盟後台取得的真實連結，例如：
+#   訂房：Booking.com Affiliate Partner Programme、Agoda Partners、Expedia Group Affiliate
+#   日本行程／票券：Klook、KKday 聯盟計畫
+#   旅遊保險：各保險公司或比價網的聯盟計畫
+#   台灣讀者：通路王 iChannels、聯盟網 Affiliates.One 的旅遊商品
+
+hotels-us:
+  name: Compare US hotel prices for long weekends (demo)
+  url: https://example.com/aff/hotels-us
+  network: hotel affiliate (replace)
+  market: us
+  best_for: Booking ahead of holiday price spikes
+  pros: [Free-cancellation filters, Price alerts]
+  cta: Check hotel prices
+
+hotels-uae:
+  name: Dubai & Abu Dhabi hotel deals (demo)
+  url: https://example.com/aff/hotels-uae
+  network: hotel affiliate (replace)
+  market: us
+  best_for: Eid and National Day staycations
+  pros: [Staycation packages, Free-cancellation filters]
+  cta: See UAE hotel deals
+
+italy-tours:
+  name: Skip-the-line tickets for Italian museums (demo)
+  url: https://example.com/aff/italy-tours
+  network: tours affiliate (replace)
+  market: us
+  best_for: Holiday weekends when lines are longest
+  pros: [Timed entry, Mobile tickets]
+  cta: Browse tickets
+
+japan-rail:
+  name: Japan rail passes and tickets (demo)
+  url: https://example.com/aff/japan-rail
+  network: travel affiliate (replace)
+  market: us
+  best_for: Multi-city trips outside Golden Week
+  pros: [Mobile delivery, English support]
+  cta: Check rail options
+
+japan-hotels-tw:
+  name: 日本訂房比價（示範）
+  url: https://example.com/aff/japan-hotels-tw
+  network: 訂房聯盟（請替換）
+  market: tw
+  best_for: 避開日本連假的住宿漲價
+  pros: [可免費取消, 台幣顯示價格]
+  cta: 查看日本住宿價格

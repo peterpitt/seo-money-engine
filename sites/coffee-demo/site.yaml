@@ -1,0 +1,30 @@
+# 網站設定 —— 上線前務必修改 base_url
+site:
+  name: 咖啡器材研究室
+  base_url: https://coffee.example.com
+  default_lang: zh-TW
+  author: 你的名字
+  description: 用實測與數據挑咖啡器材，不花冤枉錢。
+  out_dir: public
+  max_internal_links: 3
+
+# Google AdSense：審核通過後填入 ca-pub-xxxxxxxx，系統會自動輸出廣告碼與 ads.txt
+# 留空時只會在建議版位留下 HTML 註記，不會輸出任何廣告碼
+adsense:
+  client: ""
+  slot: ""
+  max_ads: 3
+  min_words_between: 250
+
+# GA4：填入後會自動追蹤 affiliate_click 事件（哪篇文章、哪個商品被點）
+analytics:
+  ga4: ""
+
+# 品質閘門：未通過的文章不會被發布
+quality:
+  min_words: 800
+  title_width: [20, 60]
+  description_width: [70, 160]
+  min_h2: 2
+  max_paragraph_words: 80
+  extra_banned_phrases: []

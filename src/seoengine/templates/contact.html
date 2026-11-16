@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% set zh = page_lang.lower().startswith("zh") %}
+{% block title %}{{ "聯絡我們" if zh else "Contact" }} · {{ site.name }}{% endblock %}
+{% block description %}{{ ("聯絡 " ~ site.name ~ "，回報資料錯誤或提供官方更新資料。") if zh else ("Contact " ~ site.name ~ " to report an error or share an official update.") }}{% endblock %}
+{% block head_extra %}
+<link rel="alternate" hreflang="en" href="{{ site.base_url }}/contact/">
+<link rel="alternate" hreflang="zh-TW" href="{{ site.base_url }}/contact/zh-tw/">
+<link rel="alternate" hreflang="x-default" href="{{ site.base_url }}/contact/">
+{% endblock %}
+{% block content %}
+<article class="post legal">
+{% if zh %}
+  <h1>聯絡我們</h1>
+  <p>若你發現日期、連結或說明有誤，歡迎提供頁面網址、國家／地區、正確資料與官方來源，以便核對及更新。</p>
+  {% if contact %}<p>電子郵件：<a href="mailto:{{ contact }}">{{ contact }}</a></p>{% else %}<p>目前尚未提供公開聯絡信箱。站長可在 <code>site.yaml</code> 的 <code>site.contact_email</code> 設定後啟用本頁的聯絡方式。</p>{% endif %}
+  <p>我們不提供個人行程規劃、投資、法律或人資諮詢。</p>
+{% else %}
+  <h1>Contact</h1>
+  <p>To report an incorrect date, link or explanation, please include the page URL, country or region, the correction and an official source so we can verify it.</p>
+  {% if contact %}<p>Email: <a href="mailto:{{ contact }}">{{ contact }}</a></p>{% else %}<p>A public contact email has not yet been configured. The site owner can enable one through <code>site.contact_email</code> in <code>site.yaml</code>.</p>{% endif %}
+  <p>We do not offer individual itinerary planning, investment, legal or employment advice.</p>
+{% endif %}
+</article>
+{% endblock %}

@@ -1,0 +1,65 @@
+name: test-and-deploy
+
+# 推上 main 或每週排程：測試 → 品質閘門 → 部署到 Cloudflare Pages
+# Pull request：只跑測試與品質閘門，不部署
+# 自動部署預設關閉（只跑測試與品質閘門）。要開啟時，在 Settings → Secrets and variables → Actions 設定：
+#   Secrets   CLOUDFLARE_API_TOKEN   Cloudflare API 權杖，權限「Cloudflare Pages：編輯」
+#   Secrets   CLOUDFLARE_ACCOUNT_ID  Cloudflare 帳戶 ID（後台右側欄）
+#   Variables AUTO_DEPLOY = true     沒有這個變數就不部署，避免還沒放金鑰時每次 push 都失敗
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  # 每週一台灣時間 03:17 自動重建一次：倒數天數、10 月起預設顯示明年、過去年份自動隱藏
+  schedule:
+    - cron: "17 19 * * 0"
+
+permissions:
+  contents: read
+
+# 每個網站一個資料夾、一個 Cloudflare Pages 專案、一個網域或子網域。
+# 新增子網域網站（例如 music、app）時：SITES 加一個、下面 deploy 的 matrix.site 也加一個（兩邊要一致）。
+env:
+  SITES: "sites/holiday-calendar"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - name: BDD + unit tests
+        run: python -m pytest --cov=seoengine --cov-fail-under=90
+      - name: Quality gate (every site)
+        run: for s in $SITES; do seoengine check "$s" || exit 1; done
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && vars.AUTO_DEPLOY == 'true'
+    needs: test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false          # 一個網站部署失敗，不影響其他網站
+      matrix:
+        site:
+          - sites/holiday-calendar      # 主網域：假日行事曆
+          # - sites/music               # music.<網域>（建好後取消註解）
+          # - sites/app                 # app.<網域>
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: pip install -e .
+      - name: Build, safety check and deploy to Cloudflare Pages
+        run: seoengine deploy "${{ matrix.site }}"

@@ -1,0 +1,28 @@
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.coverage
+sites/*/public/
+sites/*/quality-report.json
+sites/*/data/*.csv
+.venv/
+sites/*/dashboard/
+secrets/
+sites/*/data/trending.json
+sites/*/data/opportunities.json
+
+# 本機備份與個人/殘留檔案（不進版控）
+.backup/
+存股複利試算_GoogleSheet.xlsx
+us-holidays-2026.html
+
+# 測試覆蓋率暫存、建置封存與待刪資料夾
+.coverage.*
+_to_delete/
+hc_build.zip
+zi3ECs22
+*.bak
+# 一次性安裝器（內含整份專案的舊快照，1.7 MB）；原始碼以 repo 為準
+install_holiday_calendar.py
+# 其他專案的殘留檔
+stock-compass-dropin-blocks.html

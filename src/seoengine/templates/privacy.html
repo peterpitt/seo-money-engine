@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% set zh = page_lang.lower().startswith("zh") %}
+{% block title %}{{ "隱私權政策" if zh else "Privacy Policy" }} · {{ site.name }}{% endblock %}
+{% block description %}{{ ("說明 " ~ site.name ~ " 如何使用 cookie、Google AdSense、Google Analytics 與聯盟連結，以及如何退出個人化廣告。") if zh else ("How " ~ site.name ~ " uses cookies, Google AdSense, Google Analytics and affiliate links, and how to opt out of personalized ads.") }}{% endblock %}
+{% block head_extra %}
+<link rel="alternate" hreflang="en" href="{{ site.base_url }}/privacy/">
+<link rel="alternate" hreflang="zh-TW" href="{{ site.base_url }}/privacy/zh-tw/">
+<link rel="alternate" hreflang="x-default" href="{{ site.base_url }}/privacy/">
+{% endblock %}
+{% block content %}
+<article class="post legal">
+  <h1>{{ "隱私權政策" if zh else "Privacy Policy" }}</h1>
+  <p class="post-meta">{{ "最後更新" if zh else "Last updated" }} {{ updated }} · <a href="{{ '/privacy/' if zh else '/privacy/zh-tw/' }}">{{ "English" if zh else "繁體中文" }}</a></p>
+{% if zh %}
+  <p>本政策說明 {{ site.name }}（{{ site.base_url }}）在你瀏覽網站時會收集哪些資訊、如何使用。網站沒有會員系統，不會要求你提供姓名或電子郵件。</p>
+
+  <h2>Cookie 與廣告</h2>
+  {% if site.adsense.enabled %}
+  <p>本網站使用 Google AdSense 顯示廣告。Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website or other websites.（包括 Google 在內的第三方供應商會使用 cookie，依據你先前造訪本網站或其他網站的紀錄放送廣告。）</p>
+  <p>Google 使用廣告 cookie，讓 Google 及其合作夥伴能依據你造訪本網站和／或網路上其他網站的情形放送廣告。</p>
+  <p>你可以前往 <a href="https://www.google.com/settings/ads" rel="nofollow">Google 廣告設定</a> 停用個人化廣告，或前往 <a href="https://www.aboutads.info/choices/" rel="nofollow">www.aboutads.info</a> 停用第三方供應商用於個人化廣告的 cookie。想了解 Google 如何使用資料，請見 <a href="https://policies.google.com/technologies/partner-sites" rel="nofollow">Google 的說明</a>。</p>
+  <p>歐洲經濟區、英國與瑞士的訪客，會先看到 Google 的同意訊息，可以選擇是否接受個人化廣告。</p>
+  {% else %}
+  <p>本網站目前沒有放置廣告。日後若加入 Google AdSense 等廣告服務，會在此更新說明。</p>
+  {% endif %}
+
+  {% if site.ga4 %}
+  <h2>流量分析</h2>
+  <p>我們使用 Google Analytics 了解哪些頁面最有用，例如瀏覽次數、使用的裝置與大致地區，以及點擊了哪些外部連結。這些資料是匯總統計，不會用來辨識你個人。你可以安裝 <a href="https://tools.google.com/dlpage/gaoptout" rel="nofollow">Google Analytics 停用外掛程式</a> 拒絕被統計。</p>
+  {% endif %}
+
+  <h2>聯盟連結</h2>
+  <p>部分文章含有聯盟連結（affiliate links，網址以 /go/ 開頭）。透過這些連結購買，我們可能獲得分潤，你不需多付費用。商家可能會用自己的 cookie 記錄這次推薦，請參考各商家的隱私權政策。</p>
+
+  <h2>伺服器紀錄</h2>
+  <p>網站由 Cloudflare 託管。為了安全與穩定，Cloudflare 會處理連線所需的技術資訊，例如 IP 位址與瀏覽器類型，詳見 <a href="https://www.cloudflare.com/privacypolicy/" rel="nofollow">Cloudflare 隱私權政策</a>。</p>
+
+  <h2>政策更新</h2>
+  <p>本政策若有修改，會更新本頁的「最後更新」日期。</p>
+  {% if contact %}<p>有任何問題，請來信 <strong>{{ contact }}</strong>。</p>{% endif %}
+{% else %}
+  <p>This policy explains what information {{ site.name }} ({{ site.base_url }}) collects when you visit, and how it is used. The site has no accounts and never asks for your name or email address.</p>
+
+  <h2>Cookies and advertising</h2>
+  {% if site.adsense.enabled %}
+  <p>This website uses Google AdSense to show ads. Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this website or other websites.</p>
+  <p>Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to this site and/or other sites on the Internet.</p>
+  <p>You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" rel="nofollow">Google Ads Settings</a>. You can also opt out of third-party vendors' use of cookies for personalized advertising at <a href="https://www.aboutads.info/choices/" rel="nofollow">www.aboutads.info</a>. Learn more about <a href="https://policies.google.com/technologies/partner-sites" rel="nofollow">how Google uses data from sites that use its services</a>.</p>
+  <p>Visitors in the European Economic Area, the UK and Switzerland see Google's consent message first and can choose whether to allow personalized ads.</p>
+  {% else %}
+  <p>This website does not currently show ads. If we add an advertising service such as Google AdSense, we will update this page.</p>
+  {% endif %}
+
+  {% if site.ga4 %}
+  <h2>Analytics</h2>
+  <p>We use Google Analytics to understand which pages are useful: page views, device type, approximate region and which outbound links are clicked. This data is aggregated and is not used to identify you. You can opt out with the <a href="https://tools.google.com/dlpage/gaoptout" rel="nofollow">Google Analytics Opt-out Browser Add-on</a>.</p>
+  {% endif %}
+
+  <h2>Affiliate links</h2>
+  <p>Some articles contain affiliate links (URLs starting with /go/). If you buy through them, we may earn a commission at no extra cost to you. Merchants may set their own cookies to record the referral; see each merchant's privacy policy.</p>
+
+  <h2>Server logs</h2>
+  <p>The site is hosted on Cloudflare. For security and reliability, Cloudflare processes technical data needed to serve your request, such as IP address and browser type. See the <a href="https://www.cloudflare.com/privacypolicy/" rel="nofollow">Cloudflare Privacy Policy</a>.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, we will update the "Last updated" date on this page.</p>
+  {% if contact %}<p>Questions? Email <strong>{{ contact }}</strong>.</p>{% endif %}
+{% endif %}
+</article>
+{% endblock %}

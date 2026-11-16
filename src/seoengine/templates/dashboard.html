@@ -1,0 +1,543 @@
+<title>變現引擎儀表板</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;600&family=Noto+Sans+TC:wght@400;700&display=swap">
+<style>
+/* 版面概念：站長的控制室——上方是今天要處理的事，下面是流水線與雙軌收益 */
+:root {
+  --bg: #eef1f5;
+  --surface: #ffffff;
+  --sunk: #e4e8ef;
+  --ink: #152033;
+  --muted: #5a6578;
+  --line: #d3d9e3;
+  --accent: #e39a12;
+  --accent-ink: #8a5600;
+  --good: #1d8a58;
+  --bad: #c73a3a;
+  --usd: #2f5bd3;
+  --twd: #c0392b;
+  --display: "Big Shoulders Display", "Noto Sans TC", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e131d; --surface: #161d2a; --sunk: #1d2534; --ink: #e5e9f1; --muted: #98a2b5;
+    --line: #2a3446; --accent: #f2b23a; --accent-ink: #f2b23a; --good: #3cc48a; --bad: #f07070;
+    --usd: #7ea0ff; --twd: #ff8a7a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e131d; --surface: #161d2a; --sunk: #1d2534; --ink: #e5e9f1; --muted: #98a2b5;
+  --line: #2a3446; --accent: #f2b23a; --accent-ink: #f2b23a; --good: #3cc48a; --bad: #f07070;
+  --usd: #7ea0ff; --twd: #ff8a7a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--body); margin: 0; }
+.shell { max-width: 1120px; margin: 0 auto; padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 22px; }
+h1, h2 { font-family: var(--display); font-weight: 800; letter-spacing: .01em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(34px, 6vw, 52px); line-height: 1; }
+h2 { font-size: 28px; line-height: 1.1; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.sub { color: var(--muted); margin: 8px 0 0; font-size: 14px; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* 頁首與重點數字 */
+.top { display: grid; gap: 18px; }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(110px, 1fr)); gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.kpi { background: var(--surface); padding: 12px 14px; min-width: 0; }
+.kpi b { display: block; font: 800 30px/1 var(--display); }
+.kpi span { font-size: 12px; color: var(--muted); }
+@media (max-width: 720px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; min-width: 0;
+  display: grid; gap: 16px; }
+.panel-head { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: end; justify-content: space-between; }
+.panel-head p { margin: 4px 0 0; color: var(--muted); font-size: 14px; max-width: 62ch; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; background: var(--surface); color: var(--muted); font: 500 13px var(--mono); padding: 7px 12px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.btn { border: 1px solid var(--ink); background: var(--ink); color: var(--surface); border-radius: 8px;
+  padding: 7px 14px; font: 600 13px var(--body); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.check { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); cursor: pointer; }
+button:focus-visible, input:focus-visible, .stage:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+svg text { fill: var(--muted); font: 500 11px var(--mono); }
+svg .grid { stroke: var(--line); stroke-width: 1; }
+.chart-wrap { overflow-x: auto; position: relative; }
+.chart-wrap svg { display: block; width: 100%; min-width: 760px; height: auto; }
+.readout { font: 800 26px/1 var(--display); color: var(--accent-ink); }
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 22px; height: 10px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; }
+.pending { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; }
+.pending li { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px; padding: 8px 12px; display: grid; gap: 2px; min-width: 0; }
+.pending li span { color: var(--muted); font-size: 12px; font-family: var(--mono); }
+.pending .soon { border-left-color: var(--bad); }
+
+.op-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 640px; }
+.op-table th { text-align: start; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--line); padding: 6px 8px; }
+.op-table td { border-bottom: 1px dashed var(--line); padding: 7px 8px; vertical-align: top; }
+.op-table td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: end; white-space: nowrap; }
+.op-table tr.covered td { color: var(--muted); }
+.op-bar { height: 6px; border-radius: 99px; background: var(--accent); min-width: 2px; transition: width .6s cubic-bezier(.2,.8,.2,1); }
+.chip { display: inline-block; font: 600 11px/1.7 var(--mono); border-radius: 99px; padding: 0 7px; margin: 0 4px 2px 0; border: 1px solid var(--line); color: var(--muted); }
+.chip.hot { background: var(--bad); border-color: var(--bad); color: #fff; }
+.chip.soon { background: var(--accent); border-color: var(--accent); color: #1a1300; }
+.chip.done { background: var(--good); border-color: var(--good); color: #fff; }
+.trend-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.trend-list span { border: 1px solid var(--line); border-radius: 8px; padding: 4px 9px; font-size: 12px; }
+.trend-list b { font-family: var(--mono); color: var(--muted); font-weight: 500; margin-inline-end: 6px; }
+.src { display: inline-block; font: 600 11px/1.7 var(--mono); border-radius: 6px; padding: 0 8px; margin-inline-start: 8px; vertical-align: 2px; }
+.src.real { background: var(--good); color: #fff; }
+.src.manual { background: var(--sunk); color: var(--muted); }
+
+/* 流水線 */
+.stage { cursor: pointer; }
+.stage rect { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; transition: stroke .2s; }
+.stage.active rect { stroke: var(--accent); stroke-width: 2.5; }
+.stage .s-label { fill: var(--muted); font: 600 13px var(--body); }
+.stage .s-value { fill: var(--ink); font: 800 38px var(--display); }
+.stage .s-cap { fill: var(--muted); font: 500 11px var(--mono); }
+.pipe { fill: none; stroke: var(--line); stroke-width: 3; }
+.pipe-flow { fill: none; stroke: var(--accent); stroke-width: 3; stroke-dasharray: 6 10; opacity: .55; }
+.particle { fill: var(--accent); }
+.particle.rejected { fill: var(--bad); }
+.reject-bin { fill: none; stroke: var(--bad); stroke-dasharray: 4 4; }
+.reject-text { fill: var(--bad); font: 600 12px var(--body); }
+.detail { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 8px; }
+.detail h3 { margin: 0; font: 600 15px var(--body); }
+.detail ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px 18px; }
+.detail li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dashed var(--line); padding: 5px 0; min-width: 0; }
+.detail li span:first-child { overflow-wrap: anywhere; }
+.detail li span:last-child { color: var(--muted); font-size: 12px; white-space: nowrap; }
+.detail li.fail span:first-child { color: var(--bad); }
+
+/* 收益 */
+.notice { background: color-mix(in srgb, var(--accent) 16%, var(--surface)); border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-radius: 10px; padding: 9px 12px; font-size: 13px; }
+.pos-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; align-items: center; }
+.pos-row .readout { min-width: 4.5em; }
+.money { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.track { border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.track-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.track-head .big { font: 800 40px/1 var(--display); color: var(--cur); font-variant-numeric: tabular-nums; }
+.track-head small { color: var(--muted); font-size: 12px; }
+.rows { display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) 6.5em; gap: 4px 10px; align-items: center; font-size: 13px; }
+.row .term { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .amt { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.row .barbox { grid-column: 1 / -1; height: 9px; background: var(--sunk); border-radius: 99px; overflow: hidden; display: flex; }
+.row .seg-ad, .row .seg-aff { height: 100%; transition: width .6s cubic-bezier(.2,.8,.2,1); }
+.row .seg-ad { background: var(--cur); }
+.row .seg-aff { background: color-mix(in srgb, var(--cur) 45%, var(--surface)); }
+.curve svg { width: 100%; height: auto; display: block; }
+.curve .area { fill: color-mix(in srgb, var(--cur) 14%, transparent); }
+.curve .line { fill: none; stroke: var(--cur); stroke-width: 2.5; }
+.curve .marker { transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.curve .marker circle { fill: var(--surface); stroke: var(--cur); stroke-width: 3; }
+.empty { color: var(--muted); border: 1px dashed var(--line); border-radius: 10px; padding: 18px; }
+.empty code { font-family: var(--mono); color: var(--ink); }
+footer { color: var(--muted); font-size: 12px; }
+@media (prefers-reduced-motion: reduce) {
+  .row .seg-ad, .row .seg-aff, .curve .marker { transition: none; }
+}
+</style>
+
+<div class="shell">
+  <header class="top">
+    <div>
+      <p class="eyebrow" id="site-line">SEO MONEY ENGINE</p>
+      <h1>變現引擎儀表板</h1>
+      <p class="sub" id="gen-line"></p>
+    </div>
+    <div class="kpis" id="kpis"></div>
+  </header>
+
+  <section class="panel" id="opportunities" aria-labelledby="op-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="op-title">流量機會</h2>
+        <p id="op-sub">Keyword Planner 的搜尋量與出價 × Trends 熱搜 × 旺季時程。執行 seoengine opportunities 更新。</p>
+      </div>
+    </div>
+    <div id="op-body"></div>
+  </section>
+
+  <section class="panel" id="pending" aria-labelledby="pd-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="pd-title">待官方公告的假日</h2>
+        <p>這些日期目前是預估值。政府公告後，更新對應的 data/holidays 資料檔、把 status 改成 official，再重新建置網站。</p>
+      </div>
+    </div>
+    <div id="pending-list"></div>
+  </section>
+
+  <section class="panel" id="pipeline" aria-labelledby="pl-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="pl-title">SEO 變現流水線</h2>
+        <p>每顆粒子代表一篇內容從選題走到成效的過程，在品質閘門被擋下的會掉進紅框。數字是專案的實際狀態，點任一節點看明細。</p>
+      </div>
+      <div class="controls"><button class="btn ghost" id="pl-toggle" type="button">暫停動畫</button></div>
+    </div>
+    <div class="chart-wrap"><svg id="pl-svg" viewBox="0 0 1000 250" role="img" aria-label="SEO 變現流水線"></svg></div>
+    <div class="detail" id="pl-detail" aria-live="polite"></div>
+  </section>
+
+  <section class="panel" id="revenue" aria-labelledby="rv-title">
+    <div class="panel-head">
+      <div>
+        <h2 id="rv-title">雙軌收益預估</h2>
+        <p>拖動目標排名，看美金與台幣兩條軌道的月收益怎麼變。數字由引擎依點閱率、RPM 與聯盟轉換假設計算，兩種幣別分開、不換算加總。</p>
+      </div>
+      <div class="controls"><button class="btn" id="climb" type="button">▶ 播放排名爬升</button></div>
+    </div>
+    <div id="rv-body"></div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+
+<script type="application/json" id="viz-data">/*__VIZ_DATA__*/</script>
+<script>
+(function () {
+  "use strict";
+  var DATA = JSON.parse(document.getElementById("viz-data").textContent);
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var SVGNS = "http://www.w3.org/2000/svg";
+  var WEEK = "日一二三四五六";
+
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, parent, text) {
+    var n = document.createElementNS(SVGNS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function h(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function parse(iso) { var p = iso.split("-"); return new Date(+p[0], p[1] - 1, +p[2]); }
+  function iso(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+  function dayOfYear(d) { return Math.round((d - new Date(d.getFullYear(), 0, 1)) / 864e5); }
+  function daysIn(y) { return new Date(y, 1, 29).getMonth() === 1 ? 366 : 365; }
+  function fmtDay(d) { return (d.getMonth() + 1) + "/" + d.getDate() + "（" + WEEK[d.getDay()] + "）"; }
+  function money(v, cur) {
+    var digits = cur === "USD" && v < 100 ? 1 : 0;
+    return (cur === "USD" ? "$" : "NT$") + v.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  }
+  function tween(from, to, ms, step) {
+    if (reduce || ms <= 0) { step(to); return; }
+    var t0 = performance.now();
+    function f(now) {
+      var t = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - t, 3);
+      step(from + (to - from) * e);
+      if (t < 1) requestAnimationFrame(f);
+    }
+    requestAnimationFrame(f);
+  }
+  function pop(node, delay, keyframes) {
+    if (reduce || !node.animate) return;
+    node.animate(keyframes || [{ transform: "scale(0)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }],
+      { duration: 480, delay: delay, easing: "cubic-bezier(.2,.9,.25,1.35)", fill: "backwards" });
+  }
+
+  // ---------------------------------------------------------------- 頁首
+  var PL = DATA.pipeline, RV = DATA.revenue, PENDING = DATA.pending || [];
+  $("site-line").textContent = "SEO MONEY ENGINE · " + DATA.site.name;
+  $("gen-line").textContent = "資料產生於 " + DATA.generated + " · " + DATA.site.base_url;
+
+  function kpis() {
+    var box = $("kpis"); box.textContent = "";
+    var gate = PL.stages.filter(function (s) { return s.id === "gate"; })[0];
+    var arts = PL.stages.filter(function (s) { return s.id === "articles"; })[0];
+    var items = [
+      [gate.passed + "/" + arts.value, "已發布／全部文章"],
+      [String(gate.failed), "被品質閘門擋下"],
+      [String(PENDING.length), "待官方公告假日"],
+      [revenueAt(3), "第 3 名預估月收益"]
+    ];
+    items.forEach(function (it, i) {
+      var k = h("div", "kpi"), b = h("b", null, it[0]);
+      if (i === 3) b.style.fontSize = "22px";
+      if (i === 1 && gate.failed) b.style.color = "var(--bad)";
+      k.appendChild(b); k.appendChild(h("span", null, it[1])); box.appendChild(k);
+    });
+  }
+  function drawPending() {
+    var box = $("pending-list");
+    if (!PENDING.length) {
+      box.appendChild(h("p", "sub", DATA.pending_later ? "未來 13 個月內的假日都已是官方公告的日期。" : "目前所有假日都已是官方公告的日期。"));
+      if (!DATA.pending_later) return;
+    }
+    var ul = h("ul", "pending"), today = new Date(); today.setHours(0, 0, 0, 0);
+    PENDING.forEach(function (p) {
+      var days = Math.round((parseDate(p.start) - today) / 864e5);
+      var li = h("li", days <= 45 ? "soon" : "");
+      li.appendChild(h("strong", null, p.country + " · " + p.name));
+      li.appendChild(h("span", null, p.start + (p.end !== p.start ? " → " + p.end : "") +
+        (days >= 0 ? " · 還有 " + days + " 天" : " · 已過，請確認實際日期") + " · data/holidays/" + p.code + ".yaml"));
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    if (DATA.pending_later) box.appendChild(h("p", "sub", "另外還有 " + DATA.pending_later + " 個一年多以後的預估日期（例如後年的台灣假日），等接近時再出現在這裡。"));
+  }
+  function drawOpportunities() {
+    var box = $("op-body"), OPP = DATA.opportunities || [], TR = DATA.trending || [];
+    if (!OPP.length) {
+      box.innerHTML = '<div class="empty">還沒有流量機會資料。依序執行 <code>seoengine ads ideas</code>（Google Ads 真實數據）、<code>seoengine trends trending</code>（熱搜）、<code>seoengine opportunities</code>。</div>';
+    } else {
+      var wrap = h("div", "chart-wrap"), table = h("table", "op-table");
+      table.innerHTML = "<thead><tr><th>#</th><th>關鍵字</th><th>訊號</th><th>月搜尋量</th><th>CPC</th><th>第 3 名月收益</th><th style=\"width:18%\">機會分數</th></tr></thead>";
+      var tbody = h("tbody"), max = Math.max.apply(null, OPP.map(function (o) { return o.score; })) || 1;
+      OPP.forEach(function (o, i) {
+        var tr = h("tr", o.covered_by ? "covered" : "");
+        var chips = "";
+        if (o.trending) chips += '<span class="chip hot">熱搜中</span>';
+        if (o.urgent) chips += '<span class="chip soon">' + o.publish_by + " 前上線</span>";
+        else if (o.peak_month) chips += '<span class="chip">旺季 ' + o.peak_month + " 月</span>";
+        if (o.covered_by) chips += '<span class="chip done">已有文章</span>';
+        if (o.brief_path) chips += '<span class="chip">已建草稿</span>';
+        var cells = [String(i + 1), o.term, chips, o.volume.toLocaleString("en-US"), "$" + o.cpc.toFixed(2),
+          money(o.forecast_total, o.currency)];
+        cells.forEach(function (c, j) {
+          var td = h("td", j >= 3 ? "num" : "");
+          if (j === 2) td.innerHTML = c; else td.textContent = c;
+          tr.appendChild(td);
+        });
+        var barTd = h("td"), bar = h("div", "op-bar"); bar.style.width = "0%";
+        barTd.appendChild(bar); tr.appendChild(barTd); tbody.appendChild(tr);
+        requestAnimationFrame(function () { setTimeout(function () { bar.style.width = (o.score / max * 100) + "%"; }, 60 + i * 40); });
+      });
+      table.appendChild(tbody); wrap.appendChild(table); box.appendChild(wrap);
+    }
+    if (TR.length) {
+      var list = h("div", "trend-list");
+      TR.forEach(function (t) { var s = h("span"); s.appendChild(h("b", null, t.geo + " " + (t.traffic_label || ""))); s.appendChild(document.createTextNode(t.title)); list.appendChild(s); });
+      var label = h("p", "sub", "Google Trends 正在升溫、符合網站主題的熱搜：");
+      box.appendChild(label); box.appendChild(list);
+    }
+  }
+  function parseDate(s) { var p = s.split("-"); return new Date(+p[0], p[1] - 1, +p[2]); }
+  function revenueAt(pos) {
+    if (!RV) return "—";
+    var t = {};
+    RV.keywords.forEach(function (k) { var p = k.curve[pos - 1]; t[k.currency] = (t[k.currency] || 0) + p.ad + p.aff; });
+    return Object.keys(t).sort(function (a, b) { return a === "USD" ? -1 : b === "USD" ? 1 : 0; })
+      .map(function (c) { return money(t[c], c); }).join(" ／ ");
+  }
+
+  // ---------------------------------------------------------------- 流水線
+  var plSvg = $("pl-svg"), particles = [], plRunning = !reduce, plRaf = null;
+  var NODE_W = 132, NODE_H = 104, NY = 30, GAP = (1000 - 6 * NODE_W) / 5;
+  function nodeX(i) { return i * (NODE_W + GAP); }
+  function drawPipeline() {
+    plSvg.textContent = "";
+    var gate = PL.stages[2], rejectRate = gate.passed + gate.failed ? gate.failed / (gate.passed + gate.failed) : 0;
+    for (var i = 0; i < 5; i++) {
+      var x1 = nodeX(i) + NODE_W, x2 = nodeX(i + 1), cy = NY + NODE_H / 2;
+      el("line", { x1: x1, y1: cy, x2: x2, y2: cy, class: "pipe" }, plSvg);
+      var flow = el("line", { x1: x1, y1: cy, x2: x2, y2: cy, class: "pipe-flow" }, plSvg);
+      if (!reduce && flow.animate) flow.animate([{ strokeDashoffset: 32 }, { strokeDashoffset: 0 }], { duration: 900, iterations: Infinity });
+    }
+    var gx = nodeX(2) + NODE_W / 2;
+    el("rect", { x: gx - 60, y: NY + NODE_H + 40, width: 120, height: 44, rx: 8, class: "reject-bin" }, plSvg);
+    el("text", { x: gx, y: NY + NODE_H + 67, "text-anchor": "middle", class: "reject-text" }, plSvg, "退回修改 " + gate.failed);
+    el("line", { x1: gx, y1: NY + NODE_H, x2: gx, y2: NY + NODE_H + 40, class: "pipe", "stroke-dasharray": "3 4" }, plSvg);
+    var layer = el("g", {}, plSvg);
+    PL.stages.forEach(function (s, i) {
+      var g = el("g", { class: "stage", tabindex: "0", role: "button", "aria-label": s.label + " " + s.value }, plSvg);
+      el("rect", { x: nodeX(i), y: NY, width: NODE_W, height: NODE_H, rx: 12 }, g);
+      el("text", { x: nodeX(i) + 14, y: NY + 24, class: "s-label" }, g, s.label);
+      var v = el("text", { x: nodeX(i) + 14, y: NY + 68, class: "s-value" }, g, "0");
+      el("text", { x: nodeX(i) + 14, y: NY + 90, class: "s-cap" }, g, s.caption);
+      tween(0, s.value, 900 + i * 120, function (n) { v.textContent = Math.round(n); });
+      pop(g, 80 + i * 110, [{ transform: "translateY(10px)", opacity: 0 }, { transform: "translateY(0)", opacity: 1 }]);
+      g.addEventListener("click", function () { showDetail(i); });
+      g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showDetail(i); } });
+    });
+    particles = [];
+    for (var p = 0; p < 12; p++) {
+      particles.push({ t: -p * 0.45, node: el("circle", { r: 5, class: "particle", cx: -20, cy: -20 }, layer),
+        reject: Math.random() < rejectRate });
+    }
+    plSvg.__rejectRate = rejectRate;
+  }
+  function particlePos(pt) {
+    // t: 0..5 沿著 5 段管線；被擋下的粒子在 t=2.5（閘門中心）往下掉
+    var cy = NY + NODE_H / 2;
+    if (pt.reject && pt.t > 2.5) {
+      var drop = Math.min(1, (pt.t - 2.5) / 0.8), gx = nodeX(2) + NODE_W / 2;
+      return { x: gx, y: cy + drop * (NODE_H / 2 + 62), done: drop >= 1 };
+    }
+    var seg = Math.floor(pt.t), frac = pt.t - seg;
+    var xs = nodeX(seg) + NODE_W / 2, xe = nodeX(seg + 1) + NODE_W / 2;
+    return { x: xs + (xe - xs) * frac, y: cy, done: pt.t >= 5 };
+  }
+  function tickPipeline(now) {
+    if (!plRunning) return;
+    var dt = tickPipeline.last ? (now - tickPipeline.last) / 1000 : 0; tickPipeline.last = now;
+    particles.forEach(function (pt) {
+      pt.t += dt * 0.7;
+      if (pt.t < 0) { pt.node.setAttribute("cx", -20); return; }
+      var pos = particlePos(pt);
+      if (pos.done) { pt.t = -0.6 * Math.random(); pt.reject = Math.random() < plSvg.__rejectRate; return; }
+      pt.node.setAttribute("cx", pos.x); pt.node.setAttribute("cy", pos.y);
+      pt.node.classList.toggle("rejected", pt.reject && pt.t > 2.5);
+    });
+    plRaf = requestAnimationFrame(tickPipeline);
+  }
+  function showDetail(i) {
+    var s = PL.stages[i], box = $("pl-detail");
+    Array.prototype.forEach.call(plSvg.querySelectorAll(".stage"), function (n, j) { n.classList.toggle("active", j === i); });
+    box.textContent = "";
+    box.appendChild(h("h3", null, s.label + " · " + s.caption));
+    if (!s.detail.length) { box.appendChild(h("p", "sub", "目前沒有項目。")); return; }
+    var ul = h("ul");
+    s.detail.forEach(function (d) {
+      var li = h("li", d.passed === false ? "fail" : "");
+      li.appendChild(h("span", null, d.label));
+      li.appendChild(h("span", null, d.passed === false ? "擋下：" + d.rules.join(", ") : d.meta));
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+  }
+  $("pl-toggle").addEventListener("click", function () {
+    plRunning = !plRunning; this.textContent = plRunning ? "暫停動畫" : "繼續動畫";
+    if (plRunning) { tickPipeline.last = 0; plRaf = requestAnimationFrame(tickPipeline); } else cancelAnimationFrame(plRaf);
+  });
+  if (reduce) $("pl-toggle").hidden = true;
+
+  // ---------------------------------------------------------------- 收益
+  var pos = 3, climbing = false;
+  function drawRevenue() {
+    var body = $("rv-body");
+    if (!RV) {
+      $("climb").hidden = true;
+      body.innerHTML = '<div class="empty">還沒有關鍵字資料。把 Keyword Planner 匯出的數字整理成 <code>keywords.csv</code> 放進網站資料夾，再執行 <code>seoengine viz</code>，這裡就會出現雙軌收益動畫。</div>';
+      return;
+    }
+    body.textContent = "";
+    if (RV.example) body.appendChild(h("div", "notice", "範例數值：" + RV.source + " 的搜尋量與 CPC 是示意用，請執行 seoengine ads ideas 換成 Google Ads 的真實數據。"));
+    var srcTag = h("span", "src " + (RV.provider === "google-ads" ? "real" : "manual"), RV.provider === "google-ads" ? "Google Ads 真實數據" : "手動／範例資料");
+    $("rv-title").appendChild(srcTag);
+    var row = h("div", "pos-row");
+    row.appendChild(h("output", "readout", "第 3 名")); row.firstChild.id = "pos-readout";
+    var input = h("input"); input.type = "range"; input.min = 1; input.max = 20; input.value = 3; input.id = "pos";
+    input.setAttribute("aria-label", "目標排名");
+    row.appendChild(input); row.appendChild(h("span", "sub", "1 ← 排名 → 20"));
+    body.appendChild(row);
+    var moneyBox = h("div", "money"); body.appendChild(moneyBox);
+    var groups = {};
+    RV.keywords.forEach(function (k) { (groups[k.currency] = groups[k.currency] || []).push(k); });
+    Object.keys(groups).sort(function (a, b) { return a === "USD" ? -1 : b === "USD" ? 1 : 0; }).forEach(function (cur) {
+      var list = groups[cur], track = h("div", "track");
+      track.style.setProperty("--cur", cur === "USD" ? "var(--usd)" : "var(--twd)");
+      var head = h("div", "track-head"), left = h("div");
+      left.appendChild(h("div", "eyebrow", cur === "USD" ? "美金軌 · USD" : "台幣軌 · TWD"));
+      var big = h("div", "big", money0(cur)); left.appendChild(big);
+      head.appendChild(left);
+      var split = h("small"); head.appendChild(split);
+      track.appendChild(head);
+      var max = Math.max.apply(null, list.map(function (k) { return k.curve[0].ad + k.curve[0].aff; })) || 1;
+      var rows = h("div", "rows");
+      var rowEls = list.map(function (k) {
+        var r = h("div", "row"); r.title = k.term + " · 搜尋量 " + k.volume.toLocaleString() + " · KD " + k.difficulty;
+        r.appendChild(h("span", "term", k.term)); var amt = h("span", "amt"); r.appendChild(amt);
+        var bb = h("div", "barbox"), a = h("div", "seg-ad"), f = h("div", "seg-aff");
+        a.style.width = "0%"; f.style.width = "0%"; bb.appendChild(a); bb.appendChild(f); r.appendChild(bb);
+        rows.appendChild(r);
+        return { k: k, amt: amt, a: a, f: f };
+      });
+      track.appendChild(rows);
+      var legend = h("div", "legend");
+      legend.innerHTML = '<span><i style="background:var(--cur)"></i>AdSense</span><span><i style="background:color-mix(in srgb, var(--cur) 45%, var(--surface))"></i>聯盟分潤</span>';
+      track.appendChild(legend);
+      var curve = h("div", "curve"); track.appendChild(curve);
+      var mk = drawCurve(curve, list, cur);
+      moneyBox.appendChild(track);
+      track.__update = function (p, animate) {
+        var tot = 0, ad = 0, aff = 0;
+        rowEls.forEach(function (re) {
+          var pt = re.k.curve[p - 1]; tot += pt.ad + pt.aff; ad += pt.ad; aff += pt.aff;
+          re.a.style.width = (pt.ad / max * 100) + "%"; re.f.style.width = (pt.aff / max * 100) + "%";
+          re.amt.textContent = money(pt.ad + pt.aff, cur);
+        });
+        var from = track.__last || 0; track.__last = tot;
+        tween(animate ? from : tot, tot, 600, function (v) { big.textContent = money(v, cur); });
+        split.textContent = "廣告 " + money(ad, cur) + " · 聯盟 " + money(aff, cur);
+        mk(p);
+      };
+    });
+    input.addEventListener("input", function () { climbing = false; setPos(+input.value, true); });
+    requestAnimationFrame(function () { setPos(3, true); });
+  }
+  function money0(cur) { return money(0, cur); }
+  function drawCurve(box, list, cur) {
+    var w = 460, hh = 150, l = 56, r = 12, t = 12, b = 28;
+    var totals = [];
+    for (var p = 1; p <= 20; p++) {
+      totals.push(list.reduce(function (s, k) { return s + k.curve[p - 1].ad + k.curve[p - 1].aff; }, 0));
+    }
+    var max = totals[0] || 1, nice = niceMax(max);
+    var s = el("svg", { viewBox: "0 0 " + w + " " + hh, role: "img", "aria-label": cur + " 月收益與排名的關係" }, box);
+    function px(p) { return l + (p - 1) / 19 * (w - l - r); }
+    function py(v) { return t + (1 - v / nice) * (hh - t - b); }
+    [0, .5, 1].forEach(function (f) {
+      var v = nice * f;
+      el("line", { x1: l, x2: w - r, y1: py(v), y2: py(v), class: "grid" }, s);
+      el("text", { x: l - 6, y: py(v) + 4, "text-anchor": "end" }, s, money(v, cur));
+    });
+    [1, 5, 10, 15, 20].forEach(function (p) { el("text", { x: px(p), y: hh - 8, "text-anchor": "middle" }, s, "#" + p); });
+    var d = totals.map(function (v, i) { return (i ? "L" : "M") + px(i + 1).toFixed(1) + " " + py(v).toFixed(1); }).join(" ");
+    el("path", { d: d + " L" + px(20) + " " + py(0) + " L" + px(1) + " " + py(0) + " Z", class: "area" }, s);
+    var line = el("path", { d: d, class: "line" }, s);
+    if (!reduce && line.getTotalLength) {
+      var len = line.getTotalLength();
+      line.style.strokeDasharray = len; line.style.strokeDashoffset = len;
+      line.animate([{ strokeDashoffset: len }, { strokeDashoffset: 0 }], { duration: 1200, easing: "ease-out", fill: "forwards" });
+    }
+    var g = el("g", { class: "marker" }, s); el("circle", { r: 6 }, g);
+    return function (p) { g.style.transform = "translate(" + px(p) + "px," + py(totals[p - 1]) + "px)"; };
+  }
+  function niceMax(v) { var e = Math.pow(10, Math.floor(Math.log10(v))), m = v / e, steps = [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10];
+    for (var i = 0; i < steps.length; i++) if (m <= steps[i]) return steps[i] * e; return 10 * e; }
+  function setPos(p, animate) {
+    pos = p; var input = $("pos"); if (input) input.value = p;
+    $("pos-readout").textContent = "第 " + p + " 名";
+    Array.prototype.forEach.call(document.querySelectorAll(".track"), function (t) { t.__update(p, animate); });
+  }
+  $("climb").addEventListener("click", function () {
+    if (!RV) return;
+    if (reduce) { setPos(1, false); return; }
+    climbing = true; var p = 20; setPos(p, true);
+    (function next() {
+      if (!climbing) return;
+      p -= 1; if (p < 1) { climbing = false; return; }
+      setPos(p, true); setTimeout(next, 420);
+    })();
+  });
+
+  // ---------------------------------------------------------------- 啟動
+  $("foot").textContent = "只給站長看，不會隨網站部署。收益為依假設估算的月收益，實際以 Search Console 與收益報表為準。用 seoengine viz 重新產生。";
+  kpis();
+  drawOpportunities();
+  drawPending();
+  drawPipeline();
+  showDetail(2);
+  if (plRunning) plRaf = requestAnimationFrame(tickPipeline);
+  drawRevenue();
+})();
+</script>

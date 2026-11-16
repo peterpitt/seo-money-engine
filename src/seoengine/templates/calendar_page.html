@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} · {{ site.name }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block head_extra %}
+{% for l in langs %}
+<link rel="alternate" hreflang="{{ l.code }}" href="{{ l.abs }}">
+{% endfor %}
+<link rel="alternate" hreflang="x-default" href="{{ x_default }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ canonical }}">
+{# 有 JavaScript 才把國家面板收合成分頁；靜態 HTML 裡每個國家的假日都直接看得到 #}
+<script>document.documentElement.classList.add("cp-js")</script>
+{% endblock %}
+{% block content %}
+<div class="cp" data-strings='{{ js_strings }}'>
+  <div class="cp-stage">
+  <aside class="cp-rail" aria-label="{{ t.countries }}">
+    <span class="cp-rail-title">{{ t.rail }}</span>
+    {% for c in countries %}
+    <button class="cp-rail-tab{% if loop.first %} is-active{% endif %}" type="button" data-country="{{ c.code }}"
+            aria-pressed="{{ 'true' if loop.first else 'false' }}" aria-label="{{ c.name }} · {{ c.next_in }}" style="--c: {{ c.color }}">
+      <span class="cp-rail-code">{{ c.code | upper }}</span>
+      <span class="cp-rail-in">{{ c.next_in }}</span>
+    </button>
+    {% endfor %}
+  </aside>
+  <div class="cp-main">
+  <div class="cp-head">
+    <h1>{{ title }}</h1>
+    <nav class="cp-langs" aria-label="Language">
+      {% for l in langs %}<a href="{{ l.href }}" hreflang="{{ l.code }}" lang="{{ l.code }}"{% if l.current %} aria-current="page"{% endif %}>{{ l.label }}</a>{% endfor %}
+    </nav>
+  </div>
+  <p class="cp-sub">{{ t.subtitle }}</p>
+
+  {% if clocks %}<span class="cp-clock-me">{{ t.me }} <time>--:--</time></span>{% endif %}
+
+  <div class="cp-tabs" role="tablist" aria-label="{{ t.countries }}" style="--cols: {{ cols }}">
+    {% for c in countries %}
+    <button class="cp-tab{% if c.tz %} has-clock{% endif %}" type="button" role="tab" id="tab-{{ c.code }}" data-country="{{ c.code }}" aria-controls="panel-{{ c.code }}"
+            aria-labelledby="name-{{ c.code }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ 0 if loop.first else -1 }}"
+            style="--c: {{ c.color }}"{% if c.tz %} data-tz="{{ c.tz }}"{% endif %}>
+      <span class="cp-tab-name" id="name-{{ c.code }}">{{ c.name }}</span>
+      {% if c.tz %}
+      <span class="an-clock" aria-hidden="true">
+        <svg viewBox="0 0 40 40">
+          <circle class="an-face" cx="20" cy="20" r="18.5"/>
+          {% for i in range(12) %}<line class="an-tick{% if i % 3 == 0 %} is-q{% endif %}" x1="20" y1="3.6" x2="20" y2="{{ 6.6 if i % 3 == 0 else 5.4 }}" transform="rotate({{ i * 30 }} 20 20)"/>{% endfor %}
+          <line class="an-h" x1="20" y1="20" x2="20" y2="10.5" transform="rotate(305 20 20)"/>
+          <line class="an-m" x1="20" y1="20" x2="20" y2="6" transform="rotate(60 20 20)"/>
+          <line class="an-s" x1="20" y1="23.5" x2="20" y2="5" transform="rotate(0 20 20)"/>
+          <circle class="an-pin" cx="20" cy="20" r="1.5"/>
+        </svg>
+        <span class="an-ampm"></span>
+      </span>
+      <time class="cp-clock-time">--:--</time>
+      <span class="cp-clock-zone">{{ c.city or c.name }}<span class="cp-clock-day"></span> · <span class="cp-clock-rel"></span><bdi dir="ltr" class="cp-clock-utc">{{ c.utc }}</bdi></span>
+      {% endif %}
+      <span class="cp-tab-in">{{ c.next_in }}</span>
+    </button>
+    {% endfor %}
+  </div>
+
+  {% for c in countries %}
+  <section class="cp-panel{% if loop.first %} is-in{% endif %}" role="tabpanel" id="panel-{{ c.code }}" aria-labelledby="name-{{ c.code }}" tabindex="0" style="--c: {{ c.color }}">
+    <div class="cp-spotlight">
+      <div class="cp-spotlight-head"><span>{{ c.code | upper }}</span><div><h2>{{ c.name }}</h2><small>{{ c.city or c.name }}</small></div></div>
+      <div class="cp-spotlight-next"><b class="cp-spotlight-in">{{ c.next_in }}</b><div><strong class="cp-spotlight-name">{{ c.next_name }}</strong><span class="cp-spotlight-date">{{ c.next_date }}</span></div></div>
+      {% if c.upcoming %}<h3>{{ t.upcoming }}</h3><ul class="cp-spotlight-list">{% for item in c.upcoming %}<li><span>{{ item.date }}</span><strong>{{ item.name }}</strong></li>{% endfor %}</ul>{% endif %}
+      <p class="cp-resource-note">{{ t.resource_note }}</p>
+    </div>
+    <div class="cp-next"><span class="cp-next-label">{{ t.next }}</span><strong class="cp-next-name">{{ c.next_name }}</strong><span class="cp-next-date">{{ c.next_date }}</span><span class="cp-next-in">{{ c.next_in }}</span></div>
+
+    {% if c.years | length > 1 %}
+    <div class="cp-years" role="group" aria-label="{{ year }}">
+      {% for y in c.years %}<button type="button" data-year="{{ y.year }}" aria-pressed="{{ 'true' if y.default else 'false' }}">{{ y.year }}</button>{% endfor %}
+    </div>
+    {% endif %}
+
+    {# 標題年份（預設年份）的區塊排最前面，其餘照年份順序 #}
+    {% for y in c.years | sort(attribute="default", reverse=true) %}
+    <div class="cp-year" data-year="{{ y.year }}"{% if not y.default %} hidden{% endif %}>
+      <div class="cp-strip" aria-hidden="true">
+        {% for m in t.months %}<span class="cp-month">{{ m if t.months[0] | length < 4 else loop.index }}</span>{% endfor %}
+        {% for r in y.rows %}<i class="cp-dot{% if r.expected %} is-est{% endif %}" style="inset-inline-start: {{ r.pos }}%; --i: {{ r.i }}"></i>{% endfor %}
+      </div>
+
+      <h2 class="cp-h">{{ t.holidays }} {{ y.year }}</h2>
+      <ol class="cp-list">
+        {% for r in y.rows %}
+        <li class="cp-row{% if r.expected %} is-est{% endif %}" data-date="{{ r.start }}" data-end="{{ r.end }}" style="--i: {{ r.i }}">
+          <span class="cp-date">{{ r.date }}</span>
+          <span class="cp-name">{{ r.name }}{% if r.local %}<small lang="und">{{ r.local }}</small>{% endif %}</span>
+          {% if r.expected %}<span class="cp-badge">{{ t.expected }}</span>{% elif r.moved %}<span class="cp-badge is-moved" title="{{ r.moved }}">{{ t.moved }}</span>{% endif %}
+        </li>
+        {% endfor %}
+      </ol>
+
+      {% if y.chips %}
+      <h2 class="cp-h">{{ t.long }}</h2>
+      <ul class="cp-chips">
+        {% for ch in y.chips %}
+        <li class="cp-chip{% if ch.leave %} is-bridge{% endif %}"{% if ch.leave %} title="{{ ch.leave_dates }}"{% endif %}><b>{{ ch.span }}</b><span>{{ ch.days }}</span>{% if ch.leave %}<em>{{ ch.leave }}</em>{% endif %}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% if c.page %}<a class="cp-guide" href="{{ c.page }}">{{ t.guide }} →</a>{% endif %}
+  </section>
+  {% endfor %}
+  </div>
+  </div>
+  <small class="cp-note">{{ t.note }}</small>
+</div>
+<script>
+(function () {
+  var root = document.querySelector(".cp"); if (!root) return;
+  var S = JSON.parse(root.getAttribute("data-strings"));
+  var tabs = Array.prototype.slice.call(root.querySelectorAll(".cp-tab"));
+  var railTabs = Array.prototype.slice.call(root.querySelectorAll(".cp-rail-tab"));
+  function parse(s) { var p = s.split("-"); return new Date(+p[0], p[1] - 1, +p[2]); }
+  function select(tab, focus) {
+    tabs.forEach(function (t) {
+      var on = t === tab, panel = document.getElementById(t.getAttribute("aria-controls"));
+      t.setAttribute("aria-selected", on); t.tabIndex = on ? 0 : -1;
+      panel.hidden = !on; panel.classList.remove("is-in");
+      if (on) { void panel.offsetWidth; panel.classList.add("is-in"); }
+    });
+    railTabs.forEach(function (r) {
+      var on = r.getAttribute("data-country") === tab.getAttribute("data-country");
+      r.setAttribute("aria-pressed", on); r.classList.toggle("is-active", on);
+    });
+    if (focus) tab.focus();
+    if (history.replaceState) history.replaceState(null, "", "#" + tab.id.slice(4));
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener("click", function () { select(t, false); });
+    t.addEventListener("keydown", function (e) {
+      var k = e.key, rtl = document.documentElement.dir === "rtl", d = 0;
+      if (k === "ArrowRight") d = rtl ? -1 : 1; else if (k === "ArrowLeft") d = rtl ? 1 : -1; else return;
+      e.preventDefault(); select(tabs[(i + d + tabs.length) % tabs.length], true);
+    });
+  });
+  railTabs.forEach(function (r) {
+    r.addEventListener("click", function () {
+      var tab = document.getElementById("tab-" + r.getAttribute("data-country"));
+      if (tab) select(tab, true);
+    });
+  });
+  // 靜態 HTML 不帶 hidden（沒有 JS 也讀得到全部國家）；有 JS 時在這裡收合成分頁
+  tabs.forEach(function (t) { document.getElementById(t.getAttribute("aria-controls")).hidden = t.getAttribute("aria-selected") !== "true"; });
+  var hash = location.hash.slice(1), start = document.getElementById("tab-" + hash);
+  if (start) select(start, false);
+  // 年份切換
+  root.querySelectorAll(".cp-years button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var panel = b.closest(".cp-panel");
+      panel.querySelectorAll(".cp-years button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); });
+      panel.querySelectorAll(".cp-year").forEach(function (y) { y.hidden = y.getAttribute("data-year") !== b.getAttribute("data-year"); });
+      panel.classList.remove("is-in"); void panel.offsetWidth; panel.classList.add("is-in");
+    });
+  });
+  // 依訪客當天日期更新「下一個假日」與倒數
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  root.querySelectorAll(".cp-panel").forEach(function (panel) {
+    var rows = panel.querySelectorAll(".cp-row"), next = null;
+    for (var i = 0; i < rows.length; i++) {
+      if (parse(rows[i].getAttribute("data-end")) >= today && (!next || rows[i].getAttribute("data-date") < next.getAttribute("data-date"))) next = rows[i];
+    }
+    var label, box = panel.querySelector(".cp-next"), tab = document.getElementById("tab-" + panel.id.slice(6));
+    rows.forEach(function (r) { r.classList.toggle("is-next", r === next); r.classList.toggle("is-past", parse(r.getAttribute("data-end")) < today); });
+    if (!next) { label = S.none; box.querySelector(".cp-next-name").textContent = S.none; box.querySelector(".cp-next-date").textContent = ""; }
+    else {
+      var n = Math.round((parse(next.getAttribute("data-date")) - today) / 864e5);
+      label = n <= 0 ? S.today : n === 1 ? S.in1 : S["in"].replace("{n}", n);
+      box.querySelector(".cp-next-name").textContent = next.querySelector(".cp-name").firstChild.textContent;
+      box.querySelector(".cp-next-date").textContent = next.querySelector(".cp-date").textContent;
+    }
+    box.querySelector(".cp-next-in").textContent = label;
+    tab.querySelector(".cp-tab-in").textContent = label;
+    var spot = panel.querySelector(".cp-spotlight");
+    if (spot) {
+      spot.querySelector(".cp-spotlight-in").textContent = label;
+      spot.querySelector(".cp-spotlight-name").textContent = next ? next.querySelector(".cp-name").firstChild.textContent : S.none;
+      spot.querySelector(".cp-spotlight-date").textContent = next ? next.querySelector(".cp-date").textContent : "";
+    }
+  });
+  // 各國當地時間，以及跟訪客所在時區的差距（瀏覽器內建時區資料，夏令時間自動處理）
+  var clocks = root.querySelectorAll(".cp-tab[data-tz]"), me = root.querySelector(".cp-clock-me time");
+  if (clocks.length && window.Intl && Intl.DateTimeFormat.prototype.formatToParts) {
+    var offsetOf = function (tz, d) {
+      var p = {};
+      new Intl.DateTimeFormat("en-US", { timeZone: tz, hourCycle: "h23", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric" })
+        .formatToParts(d).forEach(function (x) { p[x.type] = x.value; });
+      return Math.round((Date.UTC(+p.year, p.month - 1, +p.day, +p.hour % 24, +p.minute) - Math.floor(d.getTime() / 6e4) * 6e4) / 6e4);
+    };
+    var clockFmt = function (tz) {
+      var o = { weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23" };
+      if (tz) o.timeZone = tz;
+      return new Intl.DateTimeFormat(S.lang, o);
+    };
+    var hours = function (min) {
+      var a = Math.abs(min), h = Math.floor(a / 60), m = a % 60;
+      return S.hours.replace("{n}", m ? h + ":" + (m < 10 ? "0" : "") + m : h);
+    };
+    var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var period = function (tz, d) {
+      var p = new Intl.DateTimeFormat(S.lang, { timeZone: tz, hour: "numeric", hour12: true }).formatToParts(d);
+      for (var i = 0; i < p.length; i++) if (p[i].type === "dayPeriod") return p[i].value;
+      return "";
+    };
+    var hand = function (c, cls, deg) { c.querySelector(cls).setAttribute("transform", "rotate(" + deg + " 20 20)"); };
+    var tick = function () {
+      var now = new Date(), mine = -now.getTimezoneOffset();
+      if (me) me.textContent = clockFmt().format(now);
+      clocks.forEach(function (c) {
+        var tz = c.getAttribute("data-tz"), off = offsetOf(tz, now), diff = off - mine;
+        var local = new Date(now.getTime() + off * 6e4), s = local.getUTCSeconds(),
+            m = local.getUTCMinutes() + s / 60, h = local.getUTCHours() % 12 + m / 60;
+        hand(c, ".an-h", h * 30); hand(c, ".an-m", m * 6); if (!still) hand(c, ".an-s", s * 6);
+        c.querySelector(".an-ampm").textContent = period(tz, now);
+        c.querySelector(".cp-clock-time").textContent =
+          new Intl.DateTimeFormat(S.lang, { timeZone: tz, hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(now);
+        c.querySelector(".cp-clock-day").textContent = " · " + new Intl.DateTimeFormat(S.lang, { timeZone: tz, weekday: "short" }).format(now);
+        c.querySelector(".cp-clock-rel").textContent =
+          (diff === 0 ? S.same : (diff > 0 ? S.ahead : S.behind).replace("{h}", hours(diff)));
+      });
+    };
+    if (still) clocks.forEach(function (c) { c.querySelector(".an-s").style.display = "none"; });
+    var loop = function () { tick(); setTimeout(loop, 1000 - new Date().getMilliseconds()); };
+    loop();
+  }
+})();
+</script>
+{% endblock %}

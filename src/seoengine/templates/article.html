@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% set page_lang = article.lang %}
+{% set zh = article.lang.lower().startswith("zh") %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block description %}{{ article.description }}{% endblock %}
+{% block head_extra %}
+{% for lang, href in alternates %}
+<link rel="alternate" hreflang="{{ lang }}" href="{{ href }}">
+{% endfor %}
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ article.title }}">
+<meta property="og:description" content="{{ article.description }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:locale" content="{{ article.lang | replace('-', '_') }}">
+{% if article.image %}<meta property="og:image" content="{{ article.image }}">{% endif %}
+<meta name="twitter:card" content="{{ 'summary_large_image' if article.image else 'summary' }}">
+<meta property="article:published_time" content="{{ article.date.isoformat() }}">
+<meta property="article:modified_time" content="{{ article.updated.isoformat() }}">
+{% for s in schemas %}
+<script type="application/ld+json">{{ s | safe }}</script>
+{% endfor %}
+{% endblock %}
+{% block content %}
+<nav class="breadcrumb"><a href="/">{{ "首頁" if zh else "Home" }}</a> › <span>{{ article.title }}</span></nav>
+<article class="post">
+  <h1>{{ article.title }}</h1>
+  <p class="post-meta">
+    {{ "最後更新" if zh else "Updated" }} <time datetime="{{ article.updated.isoformat() }}">{{ article.updated.isoformat() }}</time>
+    {% if article.updated != article.date %} · {{ "發布" if zh else "Published" }} <time datetime="{{ article.date.isoformat() }}">{{ article.date.isoformat() }}</time>{% endif %}
+    {% if article.author or site.author %} · {{ "作者" if zh else "By" }} <a rel="author" href="{{ about_href }}">{{ article.author or site.author }}</a>{% endif %}
+  </p>
+  {{ disclosure | safe }}
+  {% if toc | length >= 3 %}
+  <details class="toc" open>
+    <summary>{{ "文章目錄" if zh else "Contents" }}</summary>
+    <ol>{% for hid, text in toc %}<li><a href="#{{ hid }}">{{ text }}</a></li>{% endfor %}</ol>
+  </details>
+  {% endif %}
+  <div class="post-body">
+{{ body | safe }}
+  </div>
+  {% if article.faq %}
+  <section class="faq">
+    <h2 id="faq">{{ "常見問題" if zh else "FAQ" }}</h2>
+    {% for item in article.faq %}
+    <details><summary>{{ item.q }}</summary><p>{{ item.a }}</p></details>
+    {% endfor %}
+  </section>
+  {% endif %}
+</article>
+{% if related %}
+<aside class="related">
+  <p class="related-title">{{ "延伸閱讀" if zh else "Keep reading" }}</p>
+  <ul>{% for r in related %}<li><a href="/{{ r.slug }}/">{{ r.title }}</a></li>{% endfor %}</ul>
+</aside>
+{% endif %}
+{% endblock %}

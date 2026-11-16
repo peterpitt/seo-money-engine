@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="{{ page_lang | default(site.default_lang) }}"{% if page_dir == "rtl" %} dir="rtl"{% endif %}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ site.name }}{% endblock %}</title>
+<meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
+<link rel="canonical" href="{{ canonical }}">
+<meta name="robots" content="{% block robots %}index, follow, max-image-preview:large, max-snippet:-1{% endblock %}">
+{% block head_extra %}{% endblock %}
+<link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.base_url }}/feed.xml">
+<link rel="stylesheet" href="/style.css">
+{% if site.adsense.enabled %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.client }}" crossorigin="anonymous"></script>
+{% endif %}
+{% if site.ga4 %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4 }}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '{{ site.ga4 }}');
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a[data-offer]');
+  if (a) gtag('event', 'affiliate_click', {offer_id: a.dataset.offer, page_path: location.pathname});
+});
+</script>
+{% endif %}
+</head>
+<body>
+<header class="site-header"><div class="wrap">
+  <a class="logo" href="/">{{ site.name }}</a>
+  {% if nav_link %}<a class="nav-link" href="{{ nav_link[0] }}">{{ nav_link[1] }}</a>{% endif %}
+</div></header>
+<main class="wrap">
+{% block content %}{% endblock %}
+</main>
+<footer class="site-footer"><div class="wrap">
+  {% set zh_footer = (page_lang | default(site.default_lang)).lower().startswith("zh") %}
+  {% if site.sister_sites %}<nav class="site-network" aria-label="{{ site.name }}">{% for n, u in site.sister_sites %}<a href="{{ u }}">{{ n }}</a>{% endfor %}</nav>{% endif %}
+  <p>© {{ site.name }}{% if site.author %} · {{ site.author }}{% endif %} · <a href="{{ '/about/zh-tw/' if zh_footer else '/about/' }}">{{ "關於我們" if zh_footer else "About" }}</a> · <a href="{{ '/contact/zh-tw/' if zh_footer else '/contact/' }}">{{ "聯絡我們" if zh_footer else "Contact" }}</a> · <a href="{{ '/terms/zh-tw/' if zh_footer else '/terms/' }}">{{ "使用條款" if zh_footer else "Terms" }}</a> · <a href="{{ '/privacy/zh-tw/' if zh_footer else '/privacy/' }}">{{ "隱私權政策" if zh_footer else "Privacy" }}</a> · <a href="/feed.xml">RSS</a></p>
+</div></footer>
+</body>
+</html>

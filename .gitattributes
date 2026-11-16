@@ -1,0 +1,5 @@
+# 換電腦（Windows / macOS / Linux）時換行一致：版本庫與工作目錄一律 LF
+* text=auto eol=lf
+*.png binary
+*.xlsx binary
+*.zip binary

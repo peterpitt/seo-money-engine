@@ -1,0 +1,55 @@
+# 阿聯國定假日（Cabinet Resolution No. 27 of 2024）。伊斯蘭節日依月相決定，公告前一律標 estimated。
+# 2026：依官方公告的實際放假日（私人企業版本，公部門差異寫在 note）。
+# 2027–2029：伊斯蘭節日為預估（依月相計算），政府公告後請更新日期並改 status: official。
+# 查核：Khaleej Times、Gulf News、The National 官方公告報導（2026-10-23）
+country: United Arab Emirates
+country_zh: 阿聯
+code: ae
+language: ar
+timezone: Asia/Dubai        # 行事曆頁面顯示當地時間用
+city: Dubai
+city_zh: 杜拜
+short: UAE
+pages:
+  en: /uae-public-holidays/
+weekend: [sat, sun]
+sources:
+  - name: Khaleej Times — UAE announces Eid Al Fitr 2026 holiday
+    url: https://www.khaleejtimes.com/uae/uae-announces-eid-al-fitr-2026-holiday-for-public-private-sector-employees
+  - name: Gulf News — Eid Al Adha 2026 holiday for public and private sector
+    url: https://gulfnews.com/living-in-uae/ask-us/eid-al-adha-2026-who-qualifies-for-the-9-day-uae-public-holiday-1.500548625
+  - name: Khaleej Times — Hijri New Year 2026 holiday
+    url: https://www.khaleejtimes.com/uae/uae-announces-hijri-new-year-holiday-for-public-and-private-sectors-on-june-15
+  - name: The National — Prophet's Birthday 2026 holiday
+    url: https://thenationalnews.com/news/uae/2026/08/07/uae-announces-public-and-private-sector-holiday-for-prophet-mohammeds-birthday
+  - name: Khaleej Times — UAE holidays 2027 expected dates
+    url: https://www.khaleejtimes.com/uae/uae-holidays-2027-possible-6-day-break-multiple-long-weekends-expected
+holidays:
+  # ---------- 2026 (official) ----------
+  - {date: 2026-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2026-03-19, end: 2026-03-22, name: Eid Al Fitr holiday, name_zh: 開齋節假期, local: عيد الفطر, note: "Eid fell on Fri, Mar 20", note_zh: 開齋節當天為 3/20（五）}
+  - {date: 2026-05-26, end: 2026-05-29, name: Arafat Day & Eid Al Adha, name_zh: 阿拉法特日與宰牲節, local: يوم عرفة وعيد الأضحى, note: "Private sector. Federal government staff were also off Mon, May 25", note_zh: 私人企業版本；聯邦公部門另加 5/25（一）}
+  - {date: 2026-06-15, name: Hijri New Year, name_zh: 伊斯蘭新年, local: رأس السنة الهجرية}
+  - {date: 2026-08-28, actual: 2026-08-25, name: "Prophet's Birthday", name_zh: 先知誕辰, local: المولد النبوي}
+  - {date: 2026-12-02, end: 2026-12-03, name: National Day (Eid Al Etihad), name_zh: 國慶日, local: عيد الاتحاد, note: "The Cabinet can move it; any change is usually announced in mid-November", note_zh: 內閣可能調整日期，通常於 11 月中公告}
+  # ---------- 2027 (Islamic dates estimated) ----------
+  - {date: 2027-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2027-03-09, end: 2027-03-11, status: estimated, name: Eid Al Fitr holiday, name_zh: 開齋節假期, local: عيد الفطر, note: "Extends to Fri, Mar 12 if Ramadan lasts 30 days", note_zh: 若齋月滿 30 天，延長到 3/12（五）}
+  - {date: 2027-05-15, end: 2027-05-18, status: estimated, name: Arafat Day & Eid Al Adha, name_zh: 阿拉法特日與宰牲節, local: يوم عرفة وعيد الأضحى}
+  - {date: 2027-06-06, status: estimated, name: Hijri New Year, name_zh: 伊斯蘭新年, local: رأس السنة الهجرية, note: "Expected on a Sunday; weekend holidays are not moved", note_zh: 預估落在週日，週末的假日不會移到平日}
+  - {date: 2027-08-14, status: estimated, name: "Prophet's Birthday", name_zh: 先知誕辰, local: المولد النبوي, note: "Expected on a Saturday; weekend holidays are not moved", note_zh: 預估落在週六，週末的假日不會移到平日}
+  - {date: 2027-12-02, end: 2027-12-03, name: National Day (Eid Al Etihad), name_zh: 國慶日, local: عيد الاتحاد}
+  # ---------- 2028（伊斯蘭節日為預估，依月相，政府公告後更新）----------
+  - {date: 2028-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2028-02-26, end: 2028-02-28, status: estimated, name: Eid Al Fitr holiday, name_zh: 開齋節假期, local: عيد الفطر}
+  - {date: 2028-05-04, end: 2028-05-07, status: estimated, name: Arafat Day & Eid Al Adha, name_zh: 阿拉法特日與宰牲節, local: يوم عرفة وعيد الأضحى}
+  - {date: 2028-05-25, status: estimated, name: Hijri New Year, name_zh: 伊斯蘭新年, local: رأس السنة الهجرية}
+  - {date: 2028-08-03, status: estimated, name: "Prophet's Birthday", name_zh: 先知誕辰, local: المولد النبوي}
+  - {date: 2028-12-02, end: 2028-12-03, name: National Day (Eid Al Etihad), name_zh: 國慶日, local: عيد الاتحاد, note: "Falls on a weekend; the Cabinet may announce a change", note_zh: 落在週末，內閣可能另行公告調整}
+  # ---------- 2029（伊斯蘭節日為預估）----------
+  - {date: 2029-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2029-02-14, end: 2029-02-16, status: estimated, name: Eid Al Fitr holiday, name_zh: 開齋節假期, local: عيد الفطر}
+  - {date: 2029-04-23, end: 2029-04-26, status: estimated, name: Arafat Day & Eid Al Adha, name_zh: 阿拉法特日與宰牲節, local: يوم عرفة وعيد الأضحى}
+  - {date: 2029-05-14, status: estimated, name: Hijri New Year, name_zh: 伊斯蘭新年, local: رأس السنة الهجرية}
+  - {date: 2029-07-24, status: estimated, name: "Prophet's Birthday", name_zh: 先知誕辰, local: المولد النبوي}
+  - {date: 2029-12-02, end: 2029-12-03, name: National Day (Eid Al Etihad), name_zh: 國慶日, local: عيد الاتحاد}

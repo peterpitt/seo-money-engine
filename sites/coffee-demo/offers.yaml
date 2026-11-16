@@ -1,0 +1,72 @@
+# 聯盟商品表 —— 以下全部是「示範資料」，品牌為虛構，網址為 example.com。
+# 上線前請換成你在 通路王 iChannels / 聯盟網 Affiliates.One / 蝦皮分潤 / Amazon Associates
+# 取得的真實推廣連結，並依實際商品填寫價格、優缺點。
+#
+# 文章內用法：
+#   [[offer:id]]            文內連結
+#   [[offer:id|自訂文字]]    自訂錨點文字
+#   [[cta:id]]              行動呼籲卡片
+#   [[compare:a,b,c]]       比較表
+# 系統會產生 /go/<id>/ 跳轉頁（noindex、rel=sponsored），更換聯盟網址時文章不用改。
+
+# ---------- 台灣市場（TWD）----------
+brewlab-h1:
+  name: Brewlab H1 手搖磨豆機（示範）
+  url: https://example.com/aff/tw/brewlab-h1
+  network: iChannels
+  market: tw
+  price: NT$1,990
+  rating: 4.3
+  best_for: 每天 1 杯的入門者
+  pros: [不鏽鋼錐刀、重量輕, 價格低、零件好買]
+  cons: [磨淺焙豆較費力, 粉槽容量約 20g]
+  cta: 查看最新價格
+
+brewlab-h3:
+  name: Brewlab H3 精品手搖磨豆機（示範）
+  url: https://example.com/aff/tw/brewlab-h3
+  network: Affiliates.One
+  market: tw
+  price: NT$4,590
+  rating: 4.7
+  best_for: 想把手沖做細的進階玩家
+  pros: [外部刻度調整、段數細, 雙軸承、出粉均勻]
+  cons: [價格較高, 較重不適合帶出門]
+  cta: 查看優惠
+
+brewlab-e5:
+  name: Brewlab E5 電動平刀磨豆機（示範）
+  url: https://example.com/aff/tw/brewlab-e5
+  network: 蝦皮分潤
+  market: tw
+  price: NT$6,900
+  rating: 4.5
+  best_for: 一次沖 2 杯以上的家庭
+  pros: [平刀、研磨速度快, 殘粉少]
+  cons: [體積大, 運轉有噪音]
+  cta: 看蝦皮售價
+
+# ---------- 美國市場（USD）----------
+grindco-travel:
+  name: GrindCo Travel Hand Grinder (demo)
+  url: https://example.com/aff/us/grindco-travel
+  network: Amazon Associates
+  market: us
+  price: $69
+  rating: 4.2
+  best_for: Travel and one cup a day
+  pros: [Light and compact, Stainless conical burr]
+  cons: [Small hopper, Slow on light roasts]
+  cta: Check price
+
+grindco-pro:
+  name: GrindCo Pro Hand Grinder (demo)
+  url: https://example.com/aff/us/grindco-pro
+  network: Impact
+  market: us
+  price: $149
+  rating: 4.7
+  best_for: Pour-over enthusiasts
+  pros: [External click adjustment, Dual bearings for even grounds]
+  cons: [Heavier, Pricier]
+  cta: See today's deal

@@ -1,0 +1,76 @@
+# 義大利全國性國定假日（不含各城市守護聖人日）。義大利不補假：落在週末就不另放。
+# 10/4 聖方濟各日：2025 年 10 月國會通過恢復為國定假日，2026 年起生效。
+# 11 月第一個週日的「國家統一日」只是紀念活動、不放假，所以不列（python-holidays 會列出，比對時請忽略）。
+# 2028–2029 依法定規則推算（復活節依曆法計算），不需要每年公告。
+# 查核：AGI 2025-10-01 報導、python-holidays 0.107 交叉比對（2026-10-23）
+country: Italy
+country_zh: 義大利
+code: it
+language: it
+timezone: Europe/Rome        # 行事曆頁面顯示當地時間用
+city: Rome
+city_zh: 羅馬
+short: Italy
+pages:
+  en: /italy-public-holidays/
+weekend: [sat, sun]
+sources:
+  - name: AGI — San Francesco torna festa nazionale (2025-10-01)
+    url: https://www.agi.it/politica/news/2025-10-01/san-francesco-festa-nazionale-33433640/
+holidays:
+  # ---------- 2026 ----------
+  - {date: 2026-01-01, name: "New Year's Day", name_zh: 元旦, local: Capodanno}
+  - {date: 2026-01-06, name: Epiphany, name_zh: 主顯節, local: Epifania}
+  - {date: 2026-04-05, name: Easter Sunday, name_zh: 復活節, local: Pasqua}
+  - {date: 2026-04-06, name: Easter Monday, name_zh: 復活節星期一, local: Pasquetta}
+  - {date: 2026-04-25, name: Liberation Day, name_zh: 解放日, local: Festa della Liberazione}
+  - {date: 2026-05-01, name: Labour Day, name_zh: 勞動節, local: Festa del Lavoro}
+  - {date: 2026-06-02, name: Republic Day, name_zh: 共和國日, local: Festa della Repubblica}
+  - {date: 2026-08-15, name: Assumption Day, name_zh: 聖母升天節, local: Ferragosto}
+  - {date: 2026-10-04, name: "St. Francis of Assisi Day", name_zh: 聖方濟各日, local: San Francesco d'Assisi, note: "Restored as a national holiday from 2026", note_zh: 2026 年起恢復為國定假日}
+  - {date: 2026-11-01, name: "All Saints' Day", name_zh: 諸聖節, local: Ognissanti}
+  - {date: 2026-12-08, name: Immaculate Conception, name_zh: 聖母無原罪始胎節, local: Immacolata Concezione}
+  - {date: 2026-12-25, name: Christmas Day, name_zh: 聖誕節, local: Natale}
+  - {date: 2026-12-26, name: "St. Stephen's Day", name_zh: 聖斯德望日, local: Santo Stefano}
+  # ---------- 2027 ----------
+  - {date: 2027-01-01, name: "New Year's Day", name_zh: 元旦, local: Capodanno}
+  - {date: 2027-01-06, name: Epiphany, name_zh: 主顯節, local: Epifania}
+  - {date: 2027-03-28, name: Easter Sunday, name_zh: 復活節, local: Pasqua}
+  - {date: 2027-03-29, name: Easter Monday, name_zh: 復活節星期一, local: Pasquetta}
+  - {date: 2027-04-25, name: Liberation Day, name_zh: 解放日, local: Festa della Liberazione}
+  - {date: 2027-05-01, name: Labour Day, name_zh: 勞動節, local: Festa del Lavoro}
+  - {date: 2027-06-02, name: Republic Day, name_zh: 共和國日, local: Festa della Repubblica}
+  - {date: 2027-08-15, name: Assumption Day, name_zh: 聖母升天節, local: Ferragosto}
+  - {date: 2027-10-04, name: "St. Francis of Assisi Day", name_zh: 聖方濟各日, local: San Francesco d'Assisi, note: "First year it falls on a weekday since being restored", note_zh: 恢復後第一次落在平日}
+  - {date: 2027-11-01, name: "All Saints' Day", name_zh: 諸聖節, local: Ognissanti}
+  - {date: 2027-12-08, name: Immaculate Conception, name_zh: 聖母無原罪始胎節, local: Immacolata Concezione}
+  - {date: 2027-12-25, name: Christmas Day, name_zh: 聖誕節, local: Natale}
+  - {date: 2027-12-26, name: "St. Stephen's Day", name_zh: 聖斯德望日, local: Santo Stefano}
+  # ---------- 2028 ----------
+  - {date: 2028-01-01, name: "New Year's Day", name_zh: 元旦, local: Capodanno}
+  - {date: 2028-01-06, name: Epiphany, name_zh: 主顯節, local: Epifania}
+  - {date: 2028-04-16, name: Easter Sunday, name_zh: 復活節, local: Pasqua}
+  - {date: 2028-04-17, name: Easter Monday, name_zh: 復活節星期一, local: Pasquetta}
+  - {date: 2028-04-25, name: Liberation Day, name_zh: 解放日, local: Festa della Liberazione}
+  - {date: 2028-05-01, name: Labour Day, name_zh: 勞動節, local: Festa del Lavoro}
+  - {date: 2028-06-02, name: Republic Day, name_zh: 共和國日, local: Festa della Repubblica}
+  - {date: 2028-08-15, name: Assumption Day, name_zh: 聖母升天節, local: Ferragosto}
+  - {date: 2028-10-04, name: "St. Francis of Assisi Day", name_zh: 聖方濟各日, local: San Francesco d'Assisi}
+  - {date: 2028-11-01, name: "All Saints' Day", name_zh: 諸聖節, local: Ognissanti}
+  - {date: 2028-12-08, name: Immaculate Conception, name_zh: 聖母無原罪始胎節, local: Immacolata Concezione}
+  - {date: 2028-12-25, name: Christmas Day, name_zh: 聖誕節, local: Natale}
+  - {date: 2028-12-26, name: "St. Stephen's Day", name_zh: 聖斯德望日, local: Santo Stefano}
+  # ---------- 2029 ----------
+  - {date: 2029-01-01, name: "New Year's Day", name_zh: 元旦, local: Capodanno}
+  - {date: 2029-01-06, name: Epiphany, name_zh: 主顯節, local: Epifania}
+  - {date: 2029-04-01, name: Easter Sunday, name_zh: 復活節, local: Pasqua}
+  - {date: 2029-04-02, name: Easter Monday, name_zh: 復活節星期一, local: Pasquetta}
+  - {date: 2029-04-25, name: Liberation Day, name_zh: 解放日, local: Festa della Liberazione}
+  - {date: 2029-05-01, name: Labour Day, name_zh: 勞動節, local: Festa del Lavoro}
+  - {date: 2029-06-02, name: Republic Day, name_zh: 共和國日, local: Festa della Repubblica}
+  - {date: 2029-08-15, name: Assumption Day, name_zh: 聖母升天節, local: Ferragosto}
+  - {date: 2029-10-04, name: "St. Francis of Assisi Day", name_zh: 聖方濟各日, local: San Francesco d'Assisi}
+  - {date: 2029-11-01, name: "All Saints' Day", name_zh: 諸聖節, local: Ognissanti}
+  - {date: 2029-12-08, name: Immaculate Conception, name_zh: 聖母無原罪始胎節, local: Immacolata Concezione}
+  - {date: 2029-12-25, name: Christmas Day, name_zh: 聖誕節, local: Natale}
+  - {date: 2029-12-26, name: "St. Stephen's Day", name_zh: 聖斯德望日, local: Santo Stefano}

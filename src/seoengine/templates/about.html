@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% set zh = page_lang.lower().startswith("zh") %}
+{% block title %}{{ "關於我們" if zh else "About" }} · {{ site.name }}{% endblock %}
+{% block description %}{{ ("認識 " ~ site.name ~ " 的編輯原則、資料來源與更新方式。") if zh else ("Learn about " ~ site.name ~ "'s editorial approach, sources and update process.") }}{% endblock %}
+{% block head_extra %}
+<link rel="alternate" hreflang="en" href="{{ site.base_url }}/about/">
+<link rel="alternate" hreflang="zh-TW" href="{{ site.base_url }}/about/zh-tw/">
+<link rel="alternate" hreflang="x-default" href="{{ site.base_url }}/about/">
+{% endblock %}
+{% block content %}
+<article class="post legal">
+{% if zh %}
+  <h1>關於 {{ site.name }}</h1>
+  <p>{{ site.name }} 是協助旅客、上班族與家庭規劃國定假日、連假及行程的資訊網站。我們整理多國的官方假日公告，將日期、星期與可延伸的連假以一致的方式呈現。</p>
+  <h2>我們如何整理資料</h2>
+  <p>每個國家頁面以政府、主管機關、交易所或其他第一手機構的公開資料為優先來源；文章末段會列出主要來源。日期、星期與連假長度由資料檔和程式計算，減少手動抄寫造成的錯誤。</p>
+  <h2>未來日期與更新</h2>
+  <p>部分宗教節日、地方假日或尚未正式公告的日期可能變動。我們會清楚標示預估資訊，並在官方公告後更新。請在辦理簽證、購票、交易或請假等重要決定前，再向相關機構確認。</p>
+  <h2>編輯獨立性</h2>
+  <p>本站可能顯示廣告或包含聯盟連結；這不影響日期資料與編輯結論。內容以一般資訊為目的，不構成旅遊、法律、金融或人資建議。</p>
+{% else %}
+  <h1>About {{ site.name }}</h1>
+  <p>{{ site.name }} helps travelers, workers and families plan around public holidays, long weekends and trips. We bring together public holiday information for several countries in a consistent, practical format.</p>
+  <h2>How we prepare the information</h2>
+  <p>We prioritize public information from governments, responsible agencies, exchanges and other first-party institutions. Each country guide names its principal sources. Dates, weekdays and long-weekend calculations come from structured data and are calculated automatically to reduce manual transcription errors.</p>
+  <h2>Future dates and updates</h2>
+  <p>Religious holidays, local holidays and dates not yet formally announced can change. We label estimates and update them when an official announcement becomes available. Confirm important travel, leave, payment or trading decisions with the relevant institution.</p>
+  <h2>Editorial independence</h2>
+  <p>This site may display advertising or include affiliate links. They do not determine the holiday data or editorial conclusions. Content is general information, not travel, legal, financial or employment advice.</p>
+{% endif %}
+</article>
+{% endblock %}

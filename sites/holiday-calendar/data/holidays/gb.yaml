@@ -1,0 +1,53 @@
+# 英國銀行假日：英格蘭與威爾斯（蘇格蘭、北愛爾蘭另有不同假日）。
+# 落在週末時改在週一或週二補假：date 是實際放假日，actual 是原本的日期。
+# 查核：GOV.UK bank-holidays.json（england-and-wales，已公布到 2028）、python-holidays 0.107 交叉比對（2026-10-26）
+# 2029 尚未公布，依慣例推算並標為 estimated；GOV.UK 公布後改 status: official。
+country: United Kingdom
+country_zh: 英國
+code: gb
+language: en
+timezone: Europe/London        # 行事曆頁面顯示當地時間用
+city: London
+city_zh: 倫敦
+short: UK
+weekend: [sat, sun]
+sources:
+  - name: GOV.UK — UK bank holidays (England and Wales)
+    url: https://www.gov.uk/bank-holidays
+holidays:
+  # ---------- 2026 ----------
+  - {date: 2026-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2026-04-03, name: Good Friday, name_zh: 耶穌受難日}
+  - {date: 2026-04-06, name: Easter Monday, name_zh: 復活節星期一}
+  - {date: 2026-05-04, name: Early May Bank Holiday, name_zh: 五月初銀行假日}
+  - {date: 2026-05-25, name: Spring Bank Holiday, name_zh: 春季銀行假日}
+  - {date: 2026-08-31, name: Summer Bank Holiday, name_zh: 夏季銀行假日}
+  - {date: 2026-12-25, name: Christmas Day, name_zh: 聖誕節}
+  - {date: 2026-12-28, actual: 2026-12-26, name: Boxing Day, name_zh: 節禮日}
+  # ---------- 2027 ----------
+  - {date: 2027-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2027-03-26, name: Good Friday, name_zh: 耶穌受難日}
+  - {date: 2027-03-29, name: Easter Monday, name_zh: 復活節星期一}
+  - {date: 2027-05-03, name: Early May Bank Holiday, name_zh: 五月初銀行假日}
+  - {date: 2027-05-31, name: Spring Bank Holiday, name_zh: 春季銀行假日}
+  - {date: 2027-08-30, name: Summer Bank Holiday, name_zh: 夏季銀行假日}
+  - {date: 2027-12-27, actual: 2027-12-25, name: Christmas Day, name_zh: 聖誕節}
+  - {date: 2027-12-28, actual: 2027-12-26, name: Boxing Day, name_zh: 節禮日}
+  # ---------- 2028（GOV.UK 已公布）----------
+  - {date: 2028-01-03, actual: 2028-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2028-04-14, name: Good Friday, name_zh: 耶穌受難日}
+  - {date: 2028-04-17, name: Easter Monday, name_zh: 復活節星期一}
+  - {date: 2028-05-01, name: Early May Bank Holiday, name_zh: 五月初銀行假日}
+  - {date: 2028-05-29, name: Spring Bank Holiday, name_zh: 春季銀行假日}
+  - {date: 2028-08-28, name: Summer Bank Holiday, name_zh: 夏季銀行假日}
+  - {date: 2028-12-25, name: Christmas Day, name_zh: 聖誕節}
+  - {date: 2028-12-26, name: Boxing Day, name_zh: 節禮日}
+  # ---------- 2029（GOV.UK 尚未公布，依慣例推算）----------
+  - {date: 2029-01-01, status: estimated, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2029-03-30, status: estimated, name: Good Friday, name_zh: 耶穌受難日}
+  - {date: 2029-04-02, status: estimated, name: Easter Monday, name_zh: 復活節星期一}
+  - {date: 2029-05-07, status: estimated, name: Early May Bank Holiday, name_zh: 五月初銀行假日}
+  - {date: 2029-05-28, status: estimated, name: Spring Bank Holiday, name_zh: 春季銀行假日}
+  - {date: 2029-08-27, status: estimated, name: Summer Bank Holiday, name_zh: 夏季銀行假日}
+  - {date: 2029-12-25, status: estimated, name: Christmas Day, name_zh: 聖誕節}
+  - {date: 2029-12-26, status: estimated, name: Boxing Day, name_zh: 節禮日}

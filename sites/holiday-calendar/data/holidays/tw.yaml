@@ -1,0 +1,75 @@
+# 台灣國定假日：依人事行政總處「政府行政機關辦公日曆表」（115、116 年）。
+# 2025 年《紀念日及節日實施條例》新增小年夜、勞動節（全民）、教師節、光復節、行憲紀念日為放假日。
+# 補假：逢週六於前一個上班日補假、逢週日於次一個上班日補假；date 是實際放假日，actual 是原本的日期。
+# 人事總處已刪除補行上班規定，115、116 年沒有補班日。原住民族歲時祭儀與軍人節等特定對象假日不列。
+# 查核：104 人力銀行整理之 115 年日曆表、ETtoday 2026-05-21 116 年日曆表報導、python-holidays 0.107 交叉比對（2026-10-26）
+country: Taiwan
+country_zh: 台灣
+code: tw
+language: zh-TW
+timezone: Asia/Taipei        # 行事曆頁面顯示當地時間用
+city: Taipei
+city_zh: 台北
+short: Taiwan
+weekend: [sat, sun]
+sources:
+  - name: 行政院人事行政總處 — 政府行政機關辦公日曆表
+    url: https://www.dgpa.gov.tw/
+  - name: 104 人力銀行 — 2026 行事曆（115 年辦公日曆表）
+    url: https://blog.104.com.tw/2026-taiwan-government-calendar/
+  - name: ETtoday — 2027 年行事曆出爐（2026-05-21）
+    url: https://www.ettoday.net/news/20260521/3169805.htm
+holidays:
+  # ---------- 2026（115 年）----------
+  - {date: 2026-01-01, name: "New Year's Day", name_zh: 元旦, local: 中華民國開國紀念日}
+  - {date: 2026-02-15, end: 2026-02-20, name: Lunar New Year, name_zh: 春節, local: 春節, note: "Little New Year's Eve through the 3rd day, plus a make-up day", note_zh: 小年夜到初三，含補假；連同週末共放 9 天}
+  - {date: 2026-02-27, actual: 2026-02-28, name: Peace Memorial Day, name_zh: 和平紀念日, local: 和平紀念日}
+  - {date: 2026-04-03, actual: 2026-04-04, name: "Children's Day", name_zh: 兒童節, local: 兒童節}
+  - {date: 2026-04-06, actual: 2026-04-05, name: Tomb Sweeping Day, name_zh: 清明節, local: 民族掃墓節}
+  - {date: 2026-05-01, name: Labour Day, name_zh: 勞動節, local: 勞動節}
+  - {date: 2026-06-19, name: Dragon Boat Festival, name_zh: 端午節, local: 端午節}
+  - {date: 2026-09-25, name: Mid-Autumn Festival, name_zh: 中秋節, local: 中秋節}
+  - {date: 2026-09-28, name: "Teachers' Day", name_zh: 教師節, local: 孔子誕辰紀念日}
+  - {date: 2026-10-09, actual: 2026-10-10, name: National Day, name_zh: 國慶日, local: 國慶日}
+  - {date: 2026-10-26, actual: 2026-10-25, name: Taiwan Retrocession Day, name_zh: 光復節, local: 臺灣光復暨金門古寧頭大捷紀念日}
+  - {date: 2026-12-25, name: Constitution Day, name_zh: 行憲紀念日, local: 行憲紀念日}
+  # ---------- 2027（116 年）----------
+  - {date: 2027-01-01, name: "New Year's Day", name_zh: 元旦, local: 中華民國開國紀念日}
+  - {date: 2027-02-04, end: 2027-02-10, name: Lunar New Year, name_zh: 春節, local: 春節, note: "Little New Year's Eve through the 3rd day, plus two make-up days", note_zh: 小年夜到初三，含 2 天補假；共放 7 天}
+  - {date: 2027-03-01, actual: 2027-02-28, name: Peace Memorial Day, name_zh: 和平紀念日, local: 和平紀念日}
+  - {date: 2027-04-05, name: Tomb Sweeping Day, name_zh: 清明節, local: 民族掃墓節}
+  - {date: 2027-04-06, actual: 2027-04-04, name: "Children's Day", name_zh: 兒童節, local: 兒童節}
+  - {date: 2027-04-30, actual: 2027-05-01, name: Labour Day, name_zh: 勞動節, local: 勞動節}
+  - {date: 2027-06-09, name: Dragon Boat Festival, name_zh: 端午節, local: 端午節}
+  - {date: 2027-09-15, name: Mid-Autumn Festival, name_zh: 中秋節, local: 中秋節}
+  - {date: 2027-09-28, name: "Teachers' Day", name_zh: 教師節, local: 孔子誕辰紀念日}
+  - {date: 2027-10-11, actual: 2027-10-10, name: National Day, name_zh: 國慶日, local: 國慶日}
+  - {date: 2027-10-25, name: Taiwan Retrocession Day, name_zh: 光復節, local: 臺灣光復暨金門古寧頭大捷紀念日}
+  - {date: 2027-12-24, actual: 2027-12-25, name: Constitution Day, name_zh: 行憲紀念日, local: 行憲紀念日}
+  - {date: 2027-12-31, actual: 2028-01-01, name: "New Year's Day", name_zh: 元旦, local: 中華民國開國紀念日, note: "2028 New Year's Day falls on a Saturday", note_zh: 117 年元旦逢週六，提前補假}
+  # ---------- 2028（117 年）：人事總處約於 2027 年 6 月公布，以下依現行補假規則推算 ----------
+  # 117/1/1 逢週六，已於 116/12/31 補假，這裡不重複列出。
+  - {date: 2028-01-24, end: 2028-01-28, status: estimated, name: Lunar New Year, name_zh: 春節, local: 春節, note: "Little New Year's Eve through the 3rd day", note_zh: 小年夜到初三；連同前後週末共放 9 天}
+  - {date: 2028-02-28, status: estimated, name: Peace Memorial Day, name_zh: 和平紀念日, local: 和平紀念日}
+  - {date: 2028-04-03, actual: 2028-04-04, status: estimated, name: "Children's Day", name_zh: 兒童節, local: 兒童節, note: "Same day as Tomb Sweeping Day, so moved to the day before", note_zh: 與清明節同日，提前一天放假}
+  - {date: 2028-04-04, status: estimated, name: Tomb Sweeping Day, name_zh: 清明節, local: 民族掃墓節}
+  - {date: 2028-05-01, status: estimated, name: Labour Day, name_zh: 勞動節, local: 勞動節}
+  - {date: 2028-05-29, actual: 2028-05-28, status: estimated, name: Dragon Boat Festival, name_zh: 端午節, local: 端午節}
+  - {date: 2028-09-28, status: estimated, name: "Teachers' Day", name_zh: 教師節, local: 孔子誕辰紀念日}
+  - {date: 2028-10-03, status: estimated, name: Mid-Autumn Festival, name_zh: 中秋節, local: 中秋節}
+  - {date: 2028-10-10, status: estimated, name: National Day, name_zh: 國慶日, local: 國慶日}
+  - {date: 2028-10-25, status: estimated, name: Taiwan Retrocession Day, name_zh: 光復節, local: 臺灣光復暨金門古寧頭大捷紀念日}
+  - {date: 2028-12-25, status: estimated, name: Constitution Day, name_zh: 行憲紀念日, local: 行憲紀念日}
+  # ---------- 2029（118 年）：依現行補假規則推算 ----------
+  - {date: 2029-01-01, status: estimated, name: "New Year's Day", name_zh: 元旦, local: 中華民國開國紀念日}
+  - {date: 2029-02-11, end: 2029-02-16, status: estimated, name: Lunar New Year, name_zh: 春節, local: 春節, note: "Little New Year's Eve through the 3rd day, plus a make-up day", note_zh: 小年夜到初三，含補假；連同週末共放 9 天}
+  - {date: 2029-02-28, status: estimated, name: Peace Memorial Day, name_zh: 和平紀念日, local: 和平紀念日}
+  - {date: 2029-04-03, actual: 2029-04-04, status: estimated, name: "Children's Day", name_zh: 兒童節, local: 兒童節, note: "Same day as Tomb Sweeping Day, so moved to the day before", note_zh: 與清明節同日，提前一天放假}
+  - {date: 2029-04-04, status: estimated, name: Tomb Sweeping Day, name_zh: 清明節, local: 民族掃墓節}
+  - {date: 2029-05-01, status: estimated, name: Labour Day, name_zh: 勞動節, local: 勞動節}
+  - {date: 2029-06-15, actual: 2029-06-16, status: estimated, name: Dragon Boat Festival, name_zh: 端午節, local: 端午節}
+  - {date: 2029-09-21, actual: 2029-09-22, status: estimated, name: Mid-Autumn Festival, name_zh: 中秋節, local: 中秋節}
+  - {date: 2029-09-28, status: estimated, name: "Teachers' Day", name_zh: 教師節, local: 孔子誕辰紀念日}
+  - {date: 2029-10-10, status: estimated, name: National Day, name_zh: 國慶日, local: 國慶日}
+  - {date: 2029-10-25, status: estimated, name: Taiwan Retrocession Day, name_zh: 光復節, local: 臺灣光復暨金門古寧頭大捷紀念日}
+  - {date: 2029-12-25, status: estimated, name: Constitution Day, name_zh: 行憲紀念日, local: 行憲紀念日}

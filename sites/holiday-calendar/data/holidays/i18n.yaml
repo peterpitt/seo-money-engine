@@ -1,0 +1,105 @@
+# 行事曆頁面的多語言名稱（英文、繁中寫在各國資料檔；這裡補日文 ja、義大利文 it、阿拉伯文 ar）
+# 規則：頁面語言 = 該國語言時，直接用資料檔的 local（當地原名），不會用到這裡。
+# 例如日文頁的日本假日顯示「昭和の日」、義大利文頁的義大利假日顯示「Ferragosto」。
+countries:
+  us: {ja: アメリカ, it: Stati Uniti, ar: الولايات المتحدة}
+  ae: {ja: アラブ首長国連邦, it: Emirati Arabi Uniti, ar: الإمارات}
+  it: {ja: イタリア, it: Italia, ar: إيطاليا}
+  jp: {ja: 日本, it: Giappone, ar: اليابان}
+  de: {ja: ドイツ, it: Germania, ar: ألمانيا}
+  fr: {ja: フランス, it: Francia, ar: فرنسا}
+  gb: {ja: イギリス, it: Regno Unito, ar: المملكة المتحدة}
+  au: {ja: オーストラリア, it: Australia, ar: أستراليا}
+  tw: {ja: 台湾, it: Taiwan, ar: تايوان}
+
+# 行事曆上方「當地時間」的城市名稱（英文、繁中寫在各國資料檔的 city／city_zh）
+cities:
+  New York: {ja: ニューヨーク, it: New York, ar: نيويورك}
+  Dubai: {ja: ドバイ, it: Dubai, ar: دبي}
+  Rome: {ja: ローマ, it: Roma, ar: روما}
+  Tokyo: {ja: 東京, it: Tokio, ar: طوكيو}
+  Berlin: {ja: ベルリン, it: Berlino, ar: برلين}
+  Paris: {ja: パリ, it: Parigi, ar: باريس}
+  London: {ja: ロンドン, it: Londra, ar: لندن}
+  Sydney: {ja: シドニー, it: Sydney, ar: سيدني}
+  Taipei: {ja: 台北, it: Taipei, ar: تايبيه}
+
+holidays:
+  # ---- 共用 ----
+  "New Year's Day": {ja: 元日, it: Capodanno, ar: رأس السنة الميلادية}
+  Christmas Day: {ja: クリスマス, it: Natale, ar: عيد الميلاد المجيد}
+  # ---- 美國 ----
+  "Martin Luther King Jr. Day": {ja: キング牧師記念日, it: Martin Luther King Day, ar: يوم مارتن لوثر كينغ}
+  "Washington's Birthday (Presidents' Day)": {ja: 大統領の日, it: Giorno dei Presidenti, ar: يوم الرؤساء}
+  Memorial Day: {ja: 戦没将兵追悼記念日, it: Memorial Day, ar: يوم الذكرى}
+  Juneteenth: {ja: ジューンティーンス（奴隷解放記念日）, it: Juneteenth, ar: يوم التحرر (جونتينث)}
+  Independence Day: {ja: 独立記念日, it: Giorno dell'Indipendenza, ar: يوم الاستقلال}
+  Labor Day: {ja: レイバー・デー, it: Festa del Lavoro (USA), ar: عيد العمال الأمريكي}
+  Columbus Day: {ja: コロンブス・デー, it: Columbus Day, ar: يوم كولومبوس}
+  Veterans Day: {ja: 復員軍人の日, it: Giorno dei Veterani, ar: يوم المحاربين القدامى}
+  Thanksgiving Day: {ja: 感謝祭, it: Giorno del Ringraziamento, ar: عيد الشكر}
+  "New Year's Day 2028": {ja: 2028年 元日（振替）, it: Capodanno 2028, ar: رأس السنة 2028}
+  # ---- 阿聯 ----
+  Eid Al Fitr holiday: {ja: イード・アル＝フィトル（断食明け祭）, it: Eid al-Fitr}
+  Arafat Day & Eid Al Adha: {ja: アラファの日・犠牲祭, it: Giorno di Arafat ed Eid al-Adha}
+  Hijri New Year: {ja: イスラム暦新年, it: Capodanno islamico}
+  "Prophet's Birthday": {ja: 預言者生誕祭, it: Nascita del Profeta}
+  National Day (Eid Al Etihad): {ja: ナショナル・デー, it: Festa nazionale}
+  # ---- 義大利 ----
+  Epiphany: {ja: 公現祭, ar: عيد الغطاس}
+  Easter Sunday: {ja: 復活祭（イースター）, it: Pasqua, ar: عيد الفصح}
+  Easter Monday: {ja: 復活祭の翌月曜日, it: Lunedì dell'Angelo, ar: اثنين الفصح}
+  Liberation Day: {ja: 解放記念日, ar: يوم التحرير}
+  Labour Day: {ja: 労働者の日, it: Festa del Lavoro, ar: عيد العمال}
+  Republic Day: {ja: 共和国記念日, ar: عيد الجمهورية}
+  Assumption Day: {ja: 聖母被昇天祭, it: Assunzione di Maria, ar: عيد انتقال العذراء}
+  "St. Francis of Assisi Day": {ja: アッシジの聖フランチェスコの日, ar: يوم القديس فرنسيس الأسيزي}
+  "All Saints' Day": {ja: 諸聖人の日, it: Ognissanti, ar: عيد جميع القديسين}
+  Immaculate Conception: {ja: 無原罪の聖母の祭日, ar: عيد الحبل بلا دنس}
+  "St. Stephen's Day": {ja: 聖ステファノの日, ar: يوم القديس إسطفانوس}
+  # ---- 日本 ----
+  Coming of Age Day: {it: Giorno della maggiore età, ar: يوم بلوغ سن الرشد}
+  National Foundation Day: {it: Giorno della fondazione nazionale, ar: يوم تأسيس الدولة}
+  "Emperor's Birthday": {it: Compleanno dell'Imperatore, ar: عيد ميلاد الإمبراطور}
+  Vernal Equinox Day: {it: Equinozio di primavera, ar: يوم الاعتدال الربيعي}
+  Showa Day: {it: Giorno di Shōwa, ar: يوم شووا}
+  Constitution Memorial Day: {it: Giorno della Costituzione, ar: يوم الدستور}
+  Greenery Day: {it: Giorno del verde, ar: يوم الخضرة}
+  "Children's Day": {ja: 児童節, it: Giorno dei bambini, ar: يوم الأطفال}
+  Substitute Holiday: {it: Festività sostitutiva, ar: عطلة تعويضية}
+  Marine Day: {it: Giorno del mare, ar: يوم البحر}
+  Mountain Day: {it: Giorno della montagna, ar: يوم الجبل}
+  Respect for the Aged Day: {it: Giorno del rispetto per gli anziani, ar: يوم احترام المسنين}
+  "Citizens' Holiday": {it: Festività nazionale, ar: عطلة وطنية}
+  Autumnal Equinox Day: {it: Equinozio d'autunno, ar: يوم الاعتدال الخريفي}
+  Sports Day: {it: Giorno dello sport, ar: يوم الرياضة}
+  Culture Day: {it: Giorno della cultura, ar: يوم الثقافة}
+  Labor Thanksgiving Day: {it: Giorno del ringraziamento per il lavoro, ar: يوم الشكر للعمل}
+  # ---- 德國、法國、英國、澳洲 ----
+  Good Friday: {ja: 聖金曜日, it: Venerdì Santo, ar: الجمعة العظيمة}
+  Ascension Day: {ja: キリスト昇天祭, it: Ascensione, ar: عيد الصعود}
+  Whit Monday: {ja: 聖霊降臨祭の月曜日, it: Lunedì di Pentecoste, ar: اثنين العنصرة}
+  German Unity Day: {ja: ドイツ統一の日, it: Giorno dell'unità tedesca, ar: يوم الوحدة الألمانية}
+  Second Day of Christmas: {ja: クリスマス第2日, it: Santo Stefano, ar: ثاني أيام عيد الميلاد}
+  Victory in Europe Day: {ja: ヨーロッパ戦勝記念日, it: Giorno della vittoria in Europa, ar: يوم النصر في أوروبا}
+  Bastille Day: {ja: フランス革命記念日, it: Festa nazionale francese, ar: العيد الوطني الفرنسي}
+  Armistice Day: {ja: 第一次世界大戦休戦記念日, it: Giorno dell'Armistizio, ar: يوم الهدنة}
+  Early May Bank Holiday: {ja: 5月初めのバンクホリデー, it: Festività bancaria di inizio maggio, ar: عطلة بنكية أوائل مايو}
+  Spring Bank Holiday: {ja: 春のバンクホリデー, it: Festività bancaria di primavera, ar: عطلة الربيع البنكية}
+  Summer Bank Holiday: {ja: 夏のバンクホリデー, it: Festività bancaria estiva, ar: عطلة الصيف البنكية}
+  Boxing Day: {ja: ボクシング・デー, it: Santo Stefano (Boxing Day), ar: يوم الصناديق}
+  Australia Day: {ja: オーストラリア・デー, it: Festa nazionale australiana, ar: يوم أستراليا}
+  Easter Saturday: {ja: 聖土曜日, it: Sabato Santo, ar: سبت النور}
+  Anzac Day: {ja: アンザック・デー, it: Anzac Day, ar: يوم أنزاك}
+  Anzac Day (additional day): {ja: アンザック・デー（振替休日）, it: Anzac Day (giorno aggiuntivo), ar: يوم أنزاك (يوم إضافي)}
+  "King's Birthday": {ja: 国王誕生日, it: Compleanno del Re, ar: عيد ميلاد الملك}
+  # ---- 台灣 ----
+  Lunar New Year: {ja: 旧正月（春節）, it: Capodanno lunare, ar: رأس السنة القمرية}
+  Peace Memorial Day: {ja: 和平記念日, it: Giornata della memoria per la pace, ar: يوم ذكرى السلام}
+  Tomb Sweeping Day: {ja: 清明節, it: Festa di Qingming, ar: مهرجان تشينغمينغ}
+  Dragon Boat Festival: {ja: 端午節, it: Festa delle barche drago, ar: مهرجان قوارب التنين}
+  Mid-Autumn Festival: {ja: 中秋節, it: Festa di metà autunno, ar: مهرجان منتصف الخريف}
+  "Teachers' Day": {ja: 教師節, it: Festa degli insegnanti, ar: يوم المعلم}
+  National Day: {ja: 国慶節（双十節）, it: Festa nazionale (Doppio Dieci), ar: اليوم الوطني (العيد المزدوج العاشر)}
+  Taiwan Retrocession Day: {ja: 台湾光復節, it: Giorno della retrocessione di Taiwan, ar: يوم استعادة تايوان}
+  Constitution Day: {ja: 行憲記念日, it: Giorno della Costituzione, ar: يوم الدستور}

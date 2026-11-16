@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block head_extra %}
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ site.name }}">
+<meta property="og:url" content="{{ canonical }}">
+{% endblock %}
+{% block content %}
+<h1 class="home-title">{{ site.name }}</h1>
+{% if site.description %}<p class="home-desc">{{ site.description }}</p>{% endif %}
+{% for lang, items in sections %}
+<section class="home-section" lang="{{ lang }}">
+  {% if sections | length > 1 %}<h2>{{ "中文文章" if lang.lower().startswith("zh") else "English" }}</h2>{% endif %}
+  <ul class="post-list">
+  {% for a in items %}
+    <li>
+      <a href="/{{ a.slug }}/">{{ a.title }}</a>
+      <p>{{ a.description }}</p>
+      <p class="post-meta">{{ "最後更新" if lang.lower().startswith("zh") else "Updated" }} <time datetime="{{ a.updated.isoformat() }}">{{ a.updated.isoformat() }}</time>{% if a.author or site.author %} · {{ a.author or site.author }}{% endif %}</p>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endfor %}
+{% endblock %}

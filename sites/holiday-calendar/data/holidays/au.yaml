@@ -1,0 +1,69 @@
+# 澳洲公眾假日：以新南威爾斯州（NSW，雪梨）為準。各州不同，例如國王誕辰昆士蘭在 10 月、西澳在 9 月。
+# 元旦、聖誕節、節禮日落在週末時補假：date 是實際放假日，actual 是原本的日期。
+# 澳紐軍團紀念日固定在 4/25，落在週末時 NSW 另加週一（additional day）。
+# 不列 8 月的 Bank Holiday：NSW 政府說明那只是銀行休息，不是公眾假日。
+# 2028–2029：NSW 網站尚未列出，依 Public Holidays Act 2010 的規則推算。
+# 查核：nsw.gov.au/about-nsw/public-holidays、python-holidays 0.107（subdiv=NSW）交叉比對（2026-10-26）
+country: Australia
+country_zh: 澳洲
+code: au
+language: en
+timezone: Australia/Sydney        # 行事曆頁面顯示當地時間用
+city: Sydney
+city_zh: 雪梨
+short: Australia
+weekend: [sat, sun]
+sources:
+  - name: NSW Government — Public holidays
+    url: https://www.nsw.gov.au/about-nsw/public-holidays
+holidays:
+  # ---------- 2026 ----------
+  - {date: 2026-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2026-01-26, name: Australia Day, name_zh: 澳洲國慶日}
+  - {date: 2026-04-03, name: Good Friday, name_zh: 耶穌受難日}
+  - {date: 2026-04-04, name: Easter Saturday, name_zh: 復活節星期六}
+  - {date: 2026-04-05, name: Easter Sunday, name_zh: 復活節}
+  - {date: 2026-04-06, name: Easter Monday, name_zh: 復活節星期一}
+  - {date: 2026-04-25, name: Anzac Day, name_zh: 澳紐軍團紀念日}
+  - {date: 2026-04-27, name: Anzac Day (additional day), name_zh: 澳紐軍團紀念日補假}
+  - {date: 2026-06-08, name: "King's Birthday", name_zh: 國王誕辰, note: "NSW date; QLD and WA differ", note_zh: 新南威爾斯州日期；昆士蘭、西澳不同}
+  - {date: 2026-10-05, name: Labour Day, name_zh: 勞動節, note: "NSW date; other states differ", note_zh: 新南威爾斯州日期；各州不同}
+  - {date: 2026-12-25, name: Christmas Day, name_zh: 聖誕節}
+  - {date: 2026-12-28, actual: 2026-12-26, name: Boxing Day, name_zh: 節禮日}
+  # ---------- 2027 ----------
+  - {date: 2027-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2027-01-26, name: Australia Day, name_zh: 澳洲國慶日}
+  - {date: 2027-03-26, name: Good Friday, name_zh: 耶穌受難日}
+  - {date: 2027-03-27, name: Easter Saturday, name_zh: 復活節星期六}
+  - {date: 2027-03-28, name: Easter Sunday, name_zh: 復活節}
+  - {date: 2027-03-29, name: Easter Monday, name_zh: 復活節星期一}
+  - {date: 2027-04-25, name: Anzac Day, name_zh: 澳紐軍團紀念日}
+  - {date: 2027-04-26, name: Anzac Day (additional day), name_zh: 澳紐軍團紀念日補假}
+  - {date: 2027-06-14, name: "King's Birthday", name_zh: 國王誕辰, note: "NSW date; QLD and WA differ", note_zh: 新南威爾斯州日期；昆士蘭、西澳不同}
+  - {date: 2027-10-04, name: Labour Day, name_zh: 勞動節, note: "NSW date; other states differ", note_zh: 新南威爾斯州日期；各州不同}
+  - {date: 2027-12-27, actual: 2027-12-25, name: Christmas Day, name_zh: 聖誕節}
+  - {date: 2027-12-28, actual: 2027-12-26, name: Boxing Day, name_zh: 節禮日}
+  # ---------- 2028（依 NSW Public Holidays Act 2010 的規則；州政府尚未在網站列出）----------
+  - {date: 2028-01-03, actual: 2028-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2028-01-26, name: Australia Day, name_zh: 澳洲國慶日}
+  - {date: 2028-04-14, name: Good Friday, name_zh: 耶穌受難日}
+  - {date: 2028-04-15, name: Easter Saturday, name_zh: 復活節星期六}
+  - {date: 2028-04-16, name: Easter Sunday, name_zh: 復活節}
+  - {date: 2028-04-17, name: Easter Monday, name_zh: 復活節星期一}
+  - {date: 2028-04-25, name: Anzac Day, name_zh: 澳紐軍團紀念日}
+  - {date: 2028-06-12, name: "King's Birthday", name_zh: 國王誕辰, note: "NSW date; QLD and WA differ", note_zh: 新南威爾斯州日期；昆士蘭、西澳不同}
+  - {date: 2028-10-02, name: Labour Day, name_zh: 勞動節, note: "NSW date; other states differ", note_zh: 新南威爾斯州日期；各州不同}
+  - {date: 2028-12-25, name: Christmas Day, name_zh: 聖誕節}
+  - {date: 2028-12-26, name: Boxing Day, name_zh: 節禮日}
+  # ---------- 2029 ----------
+  - {date: 2029-01-01, name: "New Year's Day", name_zh: 元旦}
+  - {date: 2029-01-26, name: Australia Day, name_zh: 澳洲國慶日}
+  - {date: 2029-03-30, name: Good Friday, name_zh: 耶穌受難日}
+  - {date: 2029-03-31, name: Easter Saturday, name_zh: 復活節星期六}
+  - {date: 2029-04-01, name: Easter Sunday, name_zh: 復活節}
+  - {date: 2029-04-02, name: Easter Monday, name_zh: 復活節星期一}
+  - {date: 2029-04-25, name: Anzac Day, name_zh: 澳紐軍團紀念日}
+  - {date: 2029-06-11, name: "King's Birthday", name_zh: 國王誕辰, note: "NSW date; QLD and WA differ", note_zh: 新南威爾斯州日期；昆士蘭、西澳不同}
+  - {date: 2029-10-01, name: Labour Day, name_zh: 勞動節, note: "NSW date; other states differ", note_zh: 新南威爾斯州日期；各州不同}
+  - {date: 2029-12-25, name: Christmas Day, name_zh: 聖誕節}
+  - {date: 2029-12-26, name: Boxing Day, name_zh: 節禮日}
