@@ -79,7 +79,7 @@ def then_card_analog_clocks(ctx):
     for rel in ("index.html", "calendar/zh-tw/index.html", "calendar/ar/index.html"):
         page = (ctx["out"] / rel).read_text(encoding="utf-8")
         tabs = _tabs(page)
-        assert len(tabs) == 2 and page.count('class="an-clock"') == 2, rel
+        assert len(tabs) == 2 and sum(t.count('class="an-clock"') for t in tabs) == 2, rel
         for tab in tabs:
             for part in ("an-h", "an-m", "an-s", "an-ampm"):
                 assert f'class="{part}"' in tab, (rel, part)
@@ -136,3 +136,15 @@ def then_default_year_block_first(ctx, year):
     for tag, body in panels:
         blocks = re.findall(r'<div class="cp-year" data-year="(\d{4})"', body)
         assert blocks and int(blocks[0]) == year, (tag, blocks)
+
+
+@then("每個國家聚光燈卡都應有指針時鐘與當地時間")
+def then_spotlight_clocks(ctx):
+    for rel in ("index.html", "calendar/zh-tw/index.html", "calendar/ar/index.html"):
+        page = (ctx["out"] / rel).read_text(encoding="utf-8")
+        spots = re.findall(r'(?s)<div class="cp-spotlight">.*?<div class="cp-spotlight-next"', page)
+        assert len(spots) == 2, rel                       # 背景資料：日本、美國（都有時區）
+        for s in spots:
+            assert 'class="cp-spotlight-clock"' in s and "data-tz=" in s, rel
+            for part in ("an-h", "an-m", "an-s", "an-ampm", "cp-clock-time"):
+                assert f'class="{part}"' in s, (rel, part)

@@ -185,10 +185,12 @@ def test_countries_without_timezone_get_no_clock(tmp_path):
     html = render_calendar_page("S", "https://x.example", cals, {}, "en",
                                 CalendarPageConfig(countries=["jp", "us"], languages=["en"], year=2027),
                                 today=dt.date(2026, 10, 25))
-    assert html.count('class="an-clock"') == 1
     jp_tab = html.split('id="tab-jp"', 1)[1].split("</button>", 1)[0]
     us_tab = html.split('id="tab-us"', 1)[1].split("</button>", 1)[0]
     assert "an-clock" in jp_tab and "an-clock" not in us_tab
+    jp_panel = html.split('id="panel-jp"', 1)[1].split("</section>", 1)[0]
+    us_panel = html.split('id="panel-us"', 1)[1].split("</section>", 1)[0]
+    assert 'class="cp-spotlight-clock"' in jp_panel and 'class="cp-spotlight-clock"' not in us_panel
 
 
 # ---------------------------------------------------------------- 依 UTC 排序
@@ -328,3 +330,21 @@ def test_default_year_block_comes_first_and_buttons_stay_chronological():
     assert re.findall(r'<div class="cp-year" data-year="(\d+)"', html)[:2] == ["2027", "2026"]
     assert re.findall(r'<button type="button" data-year="(\d+)"', html)[:2] == ["2026", "2027"]
     assert '<div class="cp-year" data-year="2026" hidden>' in html     # 其他年份仍然預設收起來
+
+
+# ---------------------------------------------------------------- 桌機聚光燈卡的當地時鐘
+def test_desktop_spotlight_has_local_clock_for_countries_with_timezone():
+    import datetime as dt
+    html = _page(dt.date(2026, 11, 17))                    # de：Europe/Berlin
+    head = html.split('class="cp-spotlight-head"', 1)[1].split('class="cp-spotlight-next"', 1)[0]
+    assert 'class="cp-spotlight-clock" data-tz="Europe/Berlin"' in head
+    for part in ("an-h", "an-m", "an-s", "an-ampm", "cp-clock-time"):
+        assert f'class="{part}"' in head, part
+    assert ".cp-spotlight-clock[data-tz]" in html          # 時鐘 JS 也要驅動聚光燈時鐘
+
+
+def test_spotlight_clock_hidden_on_mobile_to_avoid_duplicate_with_tab_clock():
+    from seoengine.site import TEMPLATES
+    css = (TEMPLATES / "style.css").read_text(encoding="utf-8").replace(" ", "")
+    assert ".cp-spotlight-clock{display:none" in css       # 手機版隱藏，不跟 tab 卡片時鐘重複
+    assert ".cp-spotlight-head>span:first-child{" in css   # 國碼徽章規則只套第一個子元素，別把時鐘 span 變成圓框

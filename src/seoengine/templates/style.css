@@ -69,9 +69,14 @@ th { background: var(--soft); }
 .cp-rail-in { position: absolute; right: -12px; bottom: -8px; display: grid; place-items: center; min-width: 28px; min-height: 28px; padding: 3px 5px; border-radius: 999px; background: var(--c); color: #fff; font: 800 10px/1.1 system-ui, sans-serif; box-shadow: 0 4px 8px -5px var(--fg); }
 .cp-spotlight { display: grid; gap: 13px; padding: 18px; border: 1px solid color-mix(in srgb, var(--c) 35%, var(--line)); border-radius: 18px; background: linear-gradient(135deg, color-mix(in srgb, var(--c) 10%, var(--card)), var(--card) 65%); }
 .cp-spotlight-head { display: flex; align-items: center; gap: 10px; }
-.cp-spotlight-head > span { display: grid; place-items: center; width: 42px; height: 42px; border: 2px solid var(--c); border-radius: 50%; font: 800 16px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--c); }
+.cp-spotlight-head > span:first-child { display: grid; place-items: center; width: 42px; height: 42px; border: 2px solid var(--c); border-radius: 50%; font: 800 16px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--c); }
 .cp-spotlight-head h2 { margin: 0; font-size: 22px; }
 .cp-spotlight-head small { color: var(--muted); }
+.cp-spotlight-clock { margin-inline-start: auto; display: flex; align-items: center; gap: 10px; }
+.cp-spotlight-clock-text { display: grid; gap: 1px; text-align: end; }
+.cp-spotlight-clock .cp-clock-time { font-size: 20px; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.cp-spotlight-clock .cp-clock-rel, .cp-spotlight-clock .cp-clock-utc { font-size: 12px; color: var(--muted); }
+.cp-spotlight-clock .cp-clock-rel:not(:empty) + .cp-clock-utc::before { content: " · "; }
 .cp-spotlight-next { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 14px; padding: 14px; border: 1px solid color-mix(in srgb, var(--c) 36%, var(--line)); border-radius: 14px; background: color-mix(in srgb, var(--c) 9%, var(--card)); }
 .cp-spotlight-in { color: var(--c); font-size: 18px; white-space: nowrap; }
 .cp-spotlight-name, .cp-spotlight-date { display: block; }
@@ -172,6 +177,7 @@ html:not(.cp-js) .cp-years { display: none; }
   .cp-row .cp-date { grid-column: 1 / -1; }
   .cp-next-name { font-size: 20px; }
   .cp-spotlight { padding: 14px; }
+  .cp-spotlight-clock { display: none; }
   .cp-spotlight-list li { grid-template-columns: minmax(0, 1fr); gap: 2px; padding-left: 18px; }
   .cp-spotlight-list li::before { position: absolute; }
   .cp-spotlight-list li span, .cp-spotlight-list li strong { grid-column: 1; grid-row: auto; padding-left: 0; }
