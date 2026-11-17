@@ -348,3 +348,11 @@ def test_spotlight_clock_hidden_on_mobile_to_avoid_duplicate_with_tab_clock():
     css = (TEMPLATES / "style.css").read_text(encoding="utf-8").replace(" ", "")
     assert ".cp-spotlight-clock{display:none" in css       # 手機版隱藏，不跟 tab 卡片時鐘重複
     assert ".cp-spotlight-head>span:first-child{" in css   # 國碼徽章規則只套第一個子元素，別把時鐘 span 變成圓框
+
+
+# ---------------------------------------------------------------- 資產快取破壞（避免新 HTML 配到舊 CSS）
+def test_calendar_stylesheet_link_is_cache_busted():
+    import re
+    html = _render("en")
+    m = re.search(r'<link rel="stylesheet" href="/style\.css\?v=([0-9a-f]{6,})">', html)
+    assert m, "行事曆頁的 style.css 連結要帶內容版本號"

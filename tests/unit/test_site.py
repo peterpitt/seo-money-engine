@@ -284,3 +284,13 @@ def test_site_author_type_is_read_from_config_and_validated(tmp_path):
     bad = write_project(tmp_path / "b", site={"author_type": "robot"})
     with pytest.raises(BuildError, match="author_type"):
         SiteConfig.load(bad / "site.yaml")
+
+
+def test_assets_are_cache_busted_by_style_content_hash(project):
+    import hashlib, re
+    from seoengine.site import TEMPLATES
+    v = hashlib.sha1((TEMPLATES / "style.css").read_bytes()).hexdigest()[:8]
+    out = build_site(project).out_dir
+    for rel in ("a/index.html", "index.html"):
+        html = (out / rel).read_text(encoding="utf-8")
+        assert f'href="/style.css?v={v}"' in html, rel

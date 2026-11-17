@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import datetime as dt
 import email.utils
+import hashlib
 import json
 import shutil
 from dataclasses import dataclass, field
@@ -152,7 +153,13 @@ def _env() -> Environment:
         trim_blocks=True,
         lstrip_blocks=True,
     )
+    env.globals["asset_v"] = _asset_version()
     return env
+
+
+def _asset_version() -> str:
+    """style.css 的內容雜湊，當成網址版本號：CSS 一變網址就變，瀏覽器／CDN 不會再送到舊的那份。"""
+    return hashlib.sha1((TEMPLATES / "style.css").read_bytes()).hexdigest()[:8]
 
 
 def _prepare_out_dir(out: Path) -> None:

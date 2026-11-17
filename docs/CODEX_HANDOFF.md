@@ -1,6 +1,6 @@
 # Codex / Claude 接手紀錄
 
-最後更新：2026-11-17（Asia/Taipei）
+最後更新：2026-11-17b（Asia/Taipei）
 
 ## 目前網站
 
@@ -27,7 +27,8 @@
 - 時鐘 JS 選擇器改為 `.cp-tab[data-tz], .cp-spotlight-clock[data-tz]`，並把每個欄位寫入改成 null 安全（聚光燈沒有 `.cp-clock-day`）。
 - 踩到的坑：既有的 `.cp-spotlight-head > span`（國碼圓形徽章）會連時鐘 span 一起吃掉，已改成 `:first-child` 限定；有回歸測試鎖住。
 - 無頭 Chrome 實測：桌機時鐘會走（秒針更新）、時差正確、無 console error；手機聚光燈時鐘隱藏、tab 時鐘仍在。測試全綠（覆蓋率 94%）。
-- **尚未部署**：需再跑一次 `deploy` 才會上線。
+- **資產快取破壞**：部署後線上出現「新 HTML 配到被 CDN／瀏覽器快取的舊 style.css」→ 時鐘被舊的國碼徽章樣式套成大圓框、文字重疊。治本：`base.html` 的 style.css 連結改成 `/style.css?v=<style.css 內容雜湊>`（`_env` 以全域 `asset_v` 注入），CSS 一改網址就變，不會再配到舊檔。聚光燈時鐘同時放大到 46px。
+- **尚未部署**：需再跑一次 `deploy` 才會上線；部署後硬重新整理一次（Ctrl+F5）確認。
 
 ## 2026-11-16 審核前修正（已於 11-16 14:39 部署，線上抽查通過）
 

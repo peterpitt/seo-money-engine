@@ -14,6 +14,7 @@
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
 import html
 import json
 from dataclasses import dataclass, field
@@ -249,8 +250,10 @@ def page_path(lang: str, default_lang: str) -> str:
 
 
 def _env() -> Environment:
-    return Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=select_autoescape(["html"]),
-                       trim_blocks=True, lstrip_blocks=True)
+    env = Environment(loader=FileSystemLoader(str(TEMPLATES)), autoescape=select_autoescape(["html"]),
+                      trim_blocks=True, lstrip_blocks=True)
+    env.globals["asset_v"] = hashlib.sha1((TEMPLATES / "style.css").read_bytes()).hexdigest()[:8]
+    return env
 
 
 def _next(cal: Calendar, today: dt.date) -> HolidayEntry | None:

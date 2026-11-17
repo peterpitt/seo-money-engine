@@ -9,7 +9,7 @@
 <meta name="robots" content="{% block robots %}index, follow, max-image-preview:large, max-snippet:-1{% endblock %}">
 {% block head_extra %}{% endblock %}
 <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.base_url }}/feed.xml">
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css?v={{ asset_v | default('1') }}">
 {% if site.adsense.enabled %}
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.adsense.client }}" crossorigin="anonymous"></script>
 {% endif %}
